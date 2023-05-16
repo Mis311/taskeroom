@@ -1,10 +1,25 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import styles from "./Home.module.css";
+import MyCalendarComponent from "@/components/MyCalendar";
 
 const Home: React.FC = () => {
   const [tasks, setTasks] = useState<string[]>([]); // This would initially be fetched from your backend
   const [newTask, setNewTask] = useState<string>("");
   const [aiSuggestions, setAISuggestions] = useState<string[]>([]); // This would be fetched from your AI service
+
+  // Add state for rewards and booked sessions
+  const [rewards, setRewards] = useState<string[]>([]);
+  const [bookedSessions, setBookedSessions] = useState<Date[]>([]);
+
+  // Function to fetch AI suggestions
+  const fetchAISuggestions = () => {
+    // Fetch AI suggestions and update aiSuggestions state
+  };
+
+  // Function to automate everything
+  const automateEverything = () => {
+    // Set the state of the goal, to-do list, rewards, and booked sessions
+  };
 
   const handleTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewTask(e.target.value);
@@ -42,6 +57,19 @@ const Home: React.FC = () => {
           <li key={index}>{task}</li>
         ))}
       </ul>
+
+     
+      <h2>Rewards</h2>
+      <ul>
+        {rewards.map((reward, index) => (
+          <li key={index}>{reward}</li>
+        ))}
+      </ul>
+
+      <h2>Booked Sessions</h2>
+      <MyCalendarComponent sessions={bookedSessions} />
+
+      <button onClick={automateEverything}>Automate Everything</button>
 
       <h2>AI Suggestions</h2>
       <ul>

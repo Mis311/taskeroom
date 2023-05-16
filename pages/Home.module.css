@@ -1,6 +1,15 @@
 .dashboard {
-  padding: 20px;
+
   font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 2rem;
+    box-sizing: border-box;
+
+  
 }
 
 .dashboard h1 {
@@ -11,7 +20,8 @@
   margin-bottom: 20px;
 }
 
-.dashboard form input {
+.dashboard form 
+input {
   padding: 10px;
   margin-right: 10px;
   border-radius: 5px;
@@ -44,3 +54,4 @@
   color: white;
   cursor: pointer;
 }
+
