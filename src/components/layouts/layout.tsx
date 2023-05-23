@@ -16,9 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children, noLayout = false }) => {
                <header className={styles.header}>
                  <h1 className={styles.logo}>Taskeroom</h1>
                </header>
-               <footer className={styles.footer}>
-                 <p>&copy; 2023 Taskeroom</p>
-               </footer>
+               
              </>
            )}
            <main className={styles.main}>
