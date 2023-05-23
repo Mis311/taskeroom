@@ -1,92 +1,50 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
-import styles from "./Home.module.css";
-import MyCalendarComponent from "@/components/MyCalendar";
+import React from 'react';
+import Layout from '@/components/layouts/layout';
+// import MyCalendarComponent from '../components/MyCalendar';
+import styles from './index.module.css';
 
-const Home: React.FC = () => {
-  const [tasks, setTasks] = useState<string[]>([]); // This would initially be fetched from your backend
-  const [newTask, setNewTask] = useState<string>("");
-  const [aiSuggestions, setAISuggestions] = useState<string[]>([]); // This would be fetched from your AI service
-
-  // Add state for rewards and booked sessions
-  const [rewards, setRewards] = useState<string[]>([]);
-  const [bookedSessions, setBookedSessions] = useState<Date[]>([]);
-
-  // Function to fetch AI suggestions
-  const fetchAISuggestions = () => {
-    // Fetch AI suggestions and update aiSuggestions state
-  };
-
-  // Function to automate everything
-  const automateEverything = () => {
-    // Set the state of the goal, to-do list, rewards, and booked sessions
-  };
-
-  const handleTaskChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewTask(e.target.value);
-  };
-
-  const handleTaskSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Here is where you would make a call to your backend to add the new task
-    setTasks([...tasks, newTask]);
-    setNewTask("");
-  };
-
-  const handleSuggestionAccept = (suggestion: string) => {
-    // Here is where you would make a call to your backend to accept the suggestion
-    // You would also want to remove the accepted suggestion from your list
-  };
-
-  const handleSuggestionReject = (suggestion: string) => {
-    // Here is where you would make a call to your backend to reject the suggestion
-    // You would also want to remove the rejected suggestion from your list
-  };
-
+const LandingPage: React.FC = () => {
   return (
-    <div className={styles.dashboard}>
-      <h1>Dashboard</h1>
+    <Layout noLayout={true}>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <h1>Taskeroom</h1>
+          <div>Login</div>
+        </header>
+        
+        <div className={styles.section}>
+          <section>
+            <h2>Automate and go ahead of your life</h2>
+            <p style={{color: 'grey'}}>Optimize</p>
+            <p>Let's get things done and complete your life together with AI and automate execution sessions with your new friends.</p>
+            
+            <input className={styles.inputGoal} placeholder="Input Your Goal" />
+            <button className={styles.automateButton}>Automate</button>
+          </section>
 
-      <form onSubmit={handleTaskSubmit}>
-        <input type="text" value={newTask} onChange={handleTaskChange} />
-        <button type="submit">Add Task</button>
-      </form>
+          <section>
+            <div className={styles.imgContainer}>
+              <img src="https://via.placeholder.com/200" alt="React" />
+            </div>
+            {/* <MyCalendarComponent sessions={[]} /> */}
+          </section>
 
-      <h2>Your Tasks</h2>
-      <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>{task}</li>
-        ))}
-      </ul>
-
-     
-      <h2>Rewards</h2>
-      <ul>
-        {rewards.map((reward, index) => (
-          <li key={index}>{reward}</li>
-        ))}
-      </ul>
-
-      <h2>Booked Sessions</h2>
-      <MyCalendarComponent sessions={bookedSessions} />
-
-      <button onClick={automateEverything}>Automate Everything</button>
-
-      <h2>AI Suggestions</h2>
-      <ul>
-        {aiSuggestions.map((suggestion, index) => (
-          <li key={index}>
-            {suggestion}
-            <button onClick={() => handleSuggestionAccept(suggestion)}>
-              Accept
-            </button>
-            <button onClick={() => handleSuggestionReject(suggestion)}>
-              Reject
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+          <section>
+            <h2 style={{textAlign: 'right'}}>May <span style={{fontSize: '2em'}}>23rd</span> 2023</h2>
+            
+            <ul className={styles.todoList}>
+              <li>todo1</li>
+              <li>todo2</li>
+              <li>todo3</li>
+            </ul>
+            
+            <button className={styles.arrowButton}>➡</button>
+            <p>Automate</p>
+          </section>
+        </div>
+      </div>
+    </Layout>
   );
 };
 
-export default Home;
+export default LandingPage;

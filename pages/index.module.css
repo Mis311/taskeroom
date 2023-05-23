@@ -1,0 +1,55 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .header {
+    background-color: purple;
+    color: green;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+  }
+  
+  .section {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .section > * {
+    width: 33%;
+  }
+  
+  .inputGoal {
+    border-color: purple;
+  }
+  
+  .automateButton {
+    background-color: purple;
+    color: white;
+  }
+  
+  .imgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .todoList {
+    list-style: none;
+  }
+  
+  .todoList li {
+    border-bottom: 1px solid grey;
+  }
+  
+  .arrowButton {
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+  }
+  
