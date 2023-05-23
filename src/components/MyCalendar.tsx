@@ -20,7 +20,7 @@ const MyCalendarComponent: React.FC<MyCalendarComponentProps> = ({ sessions }) =
   return (
     <div>
       <Calendar
-        onChange={handleDateChange}
+        // onChange={handleDateChange} update later
         value={value}
         // Implement a function to provide custom tile content based on the sessions prop
       />
