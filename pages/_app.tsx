@@ -1,17 +1,17 @@
-import React from 'react';
-import Layout from '@/components/layouts/layout';
-import Home from './index';
+// pages/_app.tsx
+import { AppProps } from 'next/app'
 import '../styles/globals.css'
 import { AuthProvider } from '../firebase/AuthContext';
+import Layout from '@/components/layouts/layout';
 
-const App: React.FC = () => {
-    return (
-        <AuthProvider>
-        <Layout>
-            <Home />
-        </Layout>
-        </AuthProvider>
-    )
+function App({ Component, pageProps }: AppProps) {
+  return (
+    <AuthProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthProvider>
+  )
 }
 
 export default App;

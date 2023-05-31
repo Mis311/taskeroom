@@ -3,7 +3,7 @@ import Layout from "@/components/layouts/layout";
 // import MyCalendarComponent from '../components/MyCalendar';
 import styles from "./index.module.css";
 
-const LandingPage: React.FC = () => {
+const Home: React.FC = () => {
   return (
     <Layout noLayout={true}>
       <div className={styles.container}>
@@ -59,4 +59,4 @@ const LandingPage: React.FC = () => {
   );
 };
 
-export default LandingPage;
+export default Home;

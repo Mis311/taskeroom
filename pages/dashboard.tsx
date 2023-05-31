@@ -2,7 +2,7 @@
 import React from 'react';
 import styles from './dashboard.module.css';
 
-const Dashboard = () => {
+const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.leftPanel}>
@@ -35,4 +35,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Home;
