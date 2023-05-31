@@ -3,6 +3,16 @@ import React from 'react';
 import styles from './dashboard.module.css';
 
 const Home = () => {
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // month is zero-indexed
+  const day = date.getDate();
+  const time = date.toLocaleTimeString();
+
+  // This could be data fetched from a backend or local state
+  const todoList = ['Task 1', 'Task 2', 'Task 3'];
+  const aiSuggestions = ['Suggestion 1', 'Suggestion 2', 'Suggestion 3'];
+
   return (
     <div className={styles.container}>
       <div className={styles.leftPanel}>
@@ -19,17 +29,24 @@ const Home = () => {
 
       <div className={styles.centerPanel}>
         <h2>AI Suggestions</h2>
-        {/* Here, you could map through your array of AI suggestions */}
-        <div className={styles.suggestion}>
-          <p>Suggestion 1</p>
-          <button>Add to my tasks</button>
-        </div>
+        {aiSuggestions.map((suggestion, index) => (
+          <div key={index} className={styles.suggestion}>
+            <p>{suggestion}</p>
+            <button>Add to my tasks</button>
+          </div>
+        ))}
       </div>
 
       <div className={styles.rightPanel}>
         <h2>Your Schedule</h2>
-        {/* Here, you could map through your array of scheduled tasks */}
-        <p>Task 1</p>
+        {todoList.map((task, index) => (
+          <p key={index}>{task}</p>
+        ))}
+        <div>
+          <p>Current Time:</p>
+          <h3>{time}</h3>
+          <small>{`${month}/${day}/${year}`}</small>
+        </div>
       </div>
     </div>
   );

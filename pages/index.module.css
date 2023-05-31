@@ -1,142 +1,41 @@
+/* styles/dashboard.module.css */
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-}
-.header {
-  color: white;
-  font-family: "Inter", sans-serif;
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-  width: 100%;
-}
-
-.logo {
-  float: left;
-}
-
-.loginBtn {
-  background-color: rgb(235, 148, 235);
-  color: white;
-  font-size: 1.2rem;
-  border-radius: 20px;
-  padding: 0.5rem 1rem;
-  border: none;
-  cursor: pointer;
-  font-family: "Inter", sans-serif;
-  transition: background-color 0.3s ease;
-}
-
-.loginBtn:hover {
-  background-color: rgb(205, 118, 205);
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.header {
-  color: black;
-  font-family: "Inter", sans-serif;
-  display: flex;
-  justify-content: space-between;
-  padding: 1em;
-}
-
-.section {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100%;
 }
 
-.section > * {
-  width: 33%;
+.leftPanel {
+  flex: 1;
+  border-right: 1px solid gray;
+  padding: 20px;
 }
 
-.tagline {
-  font-size: 3rem;
-  line-height: 1.2;
-  margin-bottom: 20px;
-  font-weight: bold;
-  display: flex;
-}
-
-.subtitle {
-  color: grey;
-  font-size: 1.2rem;
-  line-height: 1.5;
-  margin-bottom: 20px;
-  max-width: 600px;
-  display: flex;
-}
-
-.inputSection {
+.rightPanel {
+  flex: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  min-width: 100%;
-  gap: 10px;
+  padding: 20px;
 }
 
-.inputGoal {
-  border-color: rgb(235, 148, 235);
-  border-radius: 20px;
-  height: 3rem;
-  min-width: 100%;
-  font-size: 1.5rem;
-  text-align: center;
+.schedule {
+  flex: 1;
+  overflow-y: auto;
 }
 
-.automateButton {
-  background-color: rgb(235, 148, 235);
-  color: white;
-  height: 3rem;
-  font-size: 1.5rem;
-
-  min-width: 100%;
+.suggestions {
+  flex: 1;
+  overflow-y: auto;
 }
 
-.imgContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.todoItem {
+  border-bottom: 1px solid gray;
+  padding: 10px;
 }
 
-.todoList {
-  list-style: none;
-  height: 3rem;
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.todoList li {
-  border-bottom: 1px solid grey;
-}
-
-.automateButton {
-  background-color: rgb(235, 148, 235);
-  color: white;
-  height: 3rem;
-  font-size: 1.5rem;
-  min-width: 100%;
-  margin-top: 20px;
-}
-
-.arrowButton {
-  background-color: black;
-  color: white;
-  border-radius: 50%;
-  margin-top: 5rem;
-  height: 7rem;
-  width: 7rem;
-  font-size: 5rem;
-  cursor: pointer;
+.suggestion {
+  border: 1px solid gray;
+  padding: 10px;
+  margin-bottom: 10px;
 }
