@@ -1,4 +1,3 @@
-// pages/taskMaker.tsx
 import React, { useState } from "react";
 import getCompletion from "./getCompletion";
 import { config } from "dotenv";
@@ -9,7 +8,9 @@ import styles from "./taskMaker.module.css";
 const TaskMaker = () => {
   const [taskDescription, setTaskDescription] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [milestones, setMilestones] = useState("");
+  const [milestones, setMilestones] = useState(false); // For the checkbox state
+  const [aiSuggestSchedule, setAISuggestSchedule] = useState(false); // For the checkbox state
+  const [aiSuggestAction, setAISuggestAction] = useState(false); // For the checkbox state
   const [aiSuggestions, setAiSuggestions] = useState([]);
   type Choice = {
     text: string;
@@ -20,7 +21,7 @@ const TaskMaker = () => {
 
     try {
       const response = await getCompletion(
-        `Task Description - ${taskDescription}, Deadline - ${deadline}, Milestones - ${milestones}`
+        `Task Description - ${taskDescription}, Deadline - ${deadline}, Milestones - ${milestones ? "Yes" : "No"}, AI Suggest Schedule - ${aiSuggestSchedule ? "Yes" : "No"}, AI Suggest what AI can do - ${aiSuggestAction ? "Yes" : "No"}`
       );
       if (response && response.choices) {
         const suggestions = response.choices.map((choice: Choice) => choice.text);
@@ -37,41 +38,57 @@ const TaskMaker = () => {
   return (
     <div className={styles.container}>
       <h2>Add Your Task</h2>
-      <form className={styles.form}  onSubmit={handleTaskSubmit}>
+      <form className={styles.form} onSubmit={handleTaskSubmit}>
         <input
-        className={styles.input}
+          className={styles.input}
           type="text"
           placeholder="What is your goal/todo?"
           value={taskDescription}
           onChange={(e) => setTaskDescription(e.target.value)}
         />
         <input
-        className={styles.input}
+          className={styles.input}
           type="text"
           placeholder="When is the deadline?e.g. 1month, July 3rd 2023..."
           value={deadline}
           onChange={(e) => setDeadline(e.target.value)}
         />
-        <input
-        className={styles.input}
-          type="text"
-          placeholder="What are the major milestones for this task? "
-          value={milestones}
-          onChange={(e) => setMilestones(e.target.value)}
-        />
+        <label>
+          <input
+            type="checkbox"
+            checked={milestones}
+            onChange={(e) => setMilestones(e.target.checked)}
+          />
+          Add Milestones
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={aiSuggestSchedule}
+            onChange={(e) => setAISuggestSchedule(e.target.checked)}
+          />
+          AI Suggest Session Schedule
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            checked={aiSuggestAction}
+            onChange={(e) => setAISuggestAction(e.target.checked)}
+          />
+          AI Suggest what AI can do
+        </label>
         <button type="submit">Confirm Task</button>
       </form>
 
       <h2>AI Suggestions</h2>
       <div className={styles.suggestions}>
-      {aiSuggestions &&
-        aiSuggestions.map((suggestion, index) => (
-          <div key={index}>
-            <p>{suggestion}</p>
-          </div>
-          
+        {aiSuggestions &&
+          aiSuggestions.map((suggestion, index) => (
+            <div key={index}>
+              <p>{suggestion}</p>
+            </div>
         ))}
-    </div>
+      </div>
     </div>
   );
 };
