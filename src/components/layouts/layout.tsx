@@ -1,17 +1,24 @@
-
 import React from "react";
 import Link from "next/link";
 import Navbar from "./navbar";
 
 type LayoutProps = {
   children: React.ReactNode;
-  noLayout?: boolean; 
+  navbar?: boolean; 
+  header?: boolean;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children, noLayout = false }) => {
+const Layout: React.FC<LayoutProps> = ({ children, navbar = true, header = true }) => {
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar noLayout={noLayout} />
+      {header && (
+        <header className="bg-indigo-400 text-white p-4 text-center">
+          <Link href="/">
+            <h1 className="text-3xl font-bold cursor-pointer">Taskeroom</h1>
+          </Link>
+        </header>
+      )}
+      {navbar && <Navbar />}
       <main className="flex-grow p-6">{children}</main>
     </div>
   );

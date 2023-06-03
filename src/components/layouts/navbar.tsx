@@ -1,21 +1,12 @@
-
 import React from "react";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
-type NavbarProps = {
-  noLayout?: boolean;
-};
-
-const Navbar: React.FC<NavbarProps> = ({ noLayout = false }) => {
+const Navbar: React.FC = () => {
   const router = useRouter();
 
-  // Don't render the Navbar if noLayout prop is true
-  if (noLayout) return null;
-
-
   return (
-    <div className="h-full bg-base text-white">
+    <div className="bg-base text-white w-30 fixed top-16 bottom-0 overflow-auto">
       <div className="p-4 bg-secondary">
         <div className="flex items-center">
           <img src="your-logo-path" alt="logo" className="w-8 h-8 mr-2" />
@@ -27,20 +18,57 @@ const Navbar: React.FC<NavbarProps> = ({ noLayout = false }) => {
       </div>
       <nav className="mt-8">
         <Link href="/dashboard">
-          <li className={`block py-2 px-4 ${router.pathname === "/dashboard" && "bg-secondary"}`}>Dashboard</li>
+          <li
+            className={`block py-2 px-4 ${
+              router.pathname === "/dashboard" && "bg-secondary"
+            }`}
+          >
+            Dashboard
+          </li>
+        </Link>
+        <Link href="/taskMaker">
+          <li
+            className={`block py-2 px-4 ${
+              router.pathname === "/taskMaker" && "bg-secondary"
+            }`}
+          >
+            TodoMaker
+          </li>
         </Link>
         <Link href="/achievements">
-          <li className={`block py-2 px-4 ${router.pathname === "/achievements" && "bg-secondary"}`}>Achievements</li>
+          <li
+            className={`block py-2 px-4 ${
+              router.pathname === "/achievements" && "bg-secondary"
+            }`}
+          >
+            Achievements
+          </li>
         </Link>
         <Link href="/teams">
-          <li className={`block py-2 px-4 ${router.pathname === "/teams" && "bg-secondary"}`}>Teams</li>
+          <li
+            className={`block py-2 px-4 ${
+              router.pathname === "/teams" && "bg-secondary"
+            }`}
+          >
+            Teams
+          </li>
         </Link>
         <Link href="/public-feed">
-          <li className={`block py-2 px-4 ${router.pathname === "/public-feed" && "bg-secondary"}`}>Public Feed</li>
+          <li
+            className={`block py-2 px-4 ${
+              router.pathname === "/public-feed" && "bg-secondary"
+            }`}
+          >
+            Public Feed
+          </li>
         </Link>
       </nav>
-      <div className="absolute bottom-0 left-0 w-full p-4">
-        <button className="w-full py-2 text-center bg-secondary">Switch to Manager View</button>
+      <div className="fixed bottom-0 left-0  p-4 bg-base">
+        <Link href="/managerDashboard">
+          <button className="w-full py-2 text-center bg-secondary">
+            Switch to Manager View
+          </button>
+        </Link>
       </div>
     </div>
   );
