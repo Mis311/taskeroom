@@ -1,9 +1,18 @@
+
 import React from "react";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 
-const Navbar: React.FC = () => {
+type NavbarProps = {
+  noLayout?: boolean;
+};
+
+const Navbar: React.FC<NavbarProps> = ({ noLayout = false }) => {
   const router = useRouter();
+
+  // Don't render the Navbar if noLayout prop is true
+  if (noLayout) return null;
+
 
   return (
     <div className="h-full bg-base text-white">

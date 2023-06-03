@@ -7,7 +7,9 @@ const Home: React.FC = () => {
       <div className="flex flex-col items-center justify-center min-h-screen py-2">
         <header className="flex items-center justify-between w-full px-4 py-2">
           <h1 className="text-2xl font-bold text-white">Taskeroom</h1>
-          <button className="px-4 py-2 text-white rounded-lg bg-pink-400 hover:bg-pink-500 transition-colors duration-300">Login</button>
+          <button className="px-4 py-2 text-white rounded-lg bg-pink-400 hover:bg-pink-500 transition-colors duration-300">
+            Login
+          </button>
         </header>
 
         <div className="flex flex-col md:flex-row md:space-x-10 space-y-10 md:space-y-0">
@@ -26,13 +28,19 @@ const Home: React.FC = () => {
                 className="w-full px-4 py-2 border-2 rounded-lg focus:outline-none focus:border-pink-400 text-center md:w-2/3"
                 placeholder="Input Your Goal"
               />
-              <button className="w-full px-4 py-2 text-white rounded-lg bg-pink-400 hover:bg-pink-500 transition-colors duration-300 md:w-auto">Automate ➡</button>
+              <button className="w-full px-4 py-2 text-white rounded-lg bg-pink-400 hover:bg-pink-500 transition-colors duration-300 md:w-auto">
+                Automate ➡
+              </button>
             </div>
           </section>
 
           <section className="flex flex-col items-center justify-center">
             <div className="w-64 h-64">
-              <img className="object-cover w-full h-full" src="calendar.png" alt="calendar" />
+              <img
+                className="object-cover w-full h-full"
+                src="calendar.png"
+                alt="calendar"
+              />
             </div>
           </section>
 
@@ -47,7 +55,9 @@ const Home: React.FC = () => {
               <li className="text-2xl border-b border-gray-400">todo3</li>
             </ul>
 
-            <button className="w-16 h-16 mt-12 text-white bg-black rounded-full cursor-pointer">➡</button>
+            <button className="w-16 h-16 mt-12 text-white bg-black rounded-full cursor-pointer">
+              ➡
+            </button>
             <p>Automate</p>
           </section>
         </div>

@@ -1,4 +1,3 @@
-// pages/_app.tsx
 import { AppProps } from "next/app";
 import "../styles/globals.css";
 import "../styles/tailwind.css";
@@ -10,8 +9,8 @@ require("dotenv").config();
 function App({ Component, pageProps }: AppProps) {
   return (
     <AuthProvider>
-      <Layout>
-        <Component {...pageProps} />
+      <Layout noLayout={false}>
+         <Component {...pageProps} /> 
       </Layout>
     </AuthProvider>
   );

@@ -6,15 +6,15 @@ module.exports = {
   ],
   darkMode: false,
   theme: {
-    extend: {},
-  },
-  variants: {
     extend: {
       colors: {
         'base': '#393857',
         'secondary': '#30304C',
       }
     },
+  },
+  variants: {
+    extend: {},
   },
   plugins: [],
 };
