@@ -1,11 +1,20 @@
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: [
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
   darkMode: false,
   theme: {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+      colors: {
+        'base': '#393857',
+        'secondary': '#30304C',
+      }
+    },
   },
   plugins: [],
-}
+};
