@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-import getCompletion from "./getCompletion";
 import { config } from "dotenv";
 config();
 import styles from "./taskMaker.module.css";
-
 
 const TaskMaker = () => {
   const [taskDescription, setTaskDescription] = useState("");
@@ -18,14 +16,24 @@ const TaskMaker = () => {
   };
   const handleTaskSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+  
     try {
-      const response = await getCompletion(
-        `Task Description - ${taskDescription}, Deadline - ${deadline}, Milestones - ${milestones ? "Yes" : "No"}, AI Suggest Schedule - ${aiSuggestSchedule ? "Yes" : "No"}, AI Suggest what AI can do - ${aiSuggestAction ? "Yes" : "No"}`
-      );
-      if (response && response.choices) {
-        const suggestions = response.choices.map((choice: Choice) => choice.text);
-        setAiSuggestions(suggestions);
+      const response = await fetch("/api/completion", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          taskDescription: taskDescription,
+          deadline: deadline,
+          milestones: milestones,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (data && data.result) {
+        setAiSuggestions([data.result]);
       } else {
         throw new Error("Unexpected API response format");
       }
@@ -34,7 +42,7 @@ const TaskMaker = () => {
     }
     // Add code to add the task to your dashboard or whatever else you need to do with the task
   };
-
+  
   return (
     <div className={styles.container}>
       <h2>Add Your Task</h2>
@@ -87,7 +95,7 @@ const TaskMaker = () => {
             <div key={index}>
               <p>{suggestion}</p>
             </div>
-        ))}
+          ))}
       </div>
     </div>
   );
