@@ -119,7 +119,4 @@ a {
   max-width: var(--max-width);
 }
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-@import "tailwindcss/tailwind.css";
+

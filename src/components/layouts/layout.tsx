@@ -1,29 +1,26 @@
-import React from 'react';
-import styles from './Layout.module.css';
+import React from "react";
+import Link from "next/link";
 
-// Define the type for props
 type LayoutProps = {
   children: React.ReactNode;
-  noLayout?: boolean; // '?' indicates optional prop
+  noLayout?: boolean; 
 };
 
-// Use the type in your component definition
 const Layout: React.FC<LayoutProps> = ({ children, noLayout = false }) => {
-    return (
-        <div className={styles.container}>
-           {!noLayout && (
-             <>
-               <header className={styles.header}>
-                 <h1 className={styles.logo}>Taskeroom</h1>
-               </header>
-               
-             </>
-           )}
-           <main className={styles.main}>
-             {children}
-           </main>
-        </div>
-    );
+  return (
+    <div className="flex flex-col min-h-screen">
+      {!noLayout && (
+        <>
+          <header className="bg-purple-400 text-white p-4 text-center">
+            <Link href="/">
+              <h1 className="text-3xl font-bold cursor-pointer">Taskeroom</h1>
+            </Link>
+          </header>
+        </>
+      )}
+      <main className="flex-grow p-6">{children}</main>
+    </div>
+  );
 };
 
 export default Layout;

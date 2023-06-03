@@ -1,6 +1,7 @@
 // pages/_app.tsx
 import { AppProps } from "next/app";
 import "../styles/globals.css";
+import "../styles/tailwind.css";
 import { AuthProvider } from "../firebase/AuthContext";
 import Layout from "@/components/layouts/layout";
 
