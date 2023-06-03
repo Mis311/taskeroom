@@ -21,27 +21,35 @@ function generatePrompt(taskDescription, deadline, milestones) {
 }
 
 export default async function (req, res) {
-  const { taskDescription, deadline, milestones } = req.body;
-  const prompt = generatePrompt(taskDescription, deadline, milestones);
-
-  try {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: prompt,
-      temperature: 0.6,
-    });
-    res.status(200).json({ result: completion.data.choices[0].text });
-  } catch(error) {
-    if (error.response) {
-      console.error(error.response.status, error.response.data);
-      res.status(error.response.status).json(error.response.data);
-    } else {
-      console.error(`Error with OpenAI API request: ${error.message}`);
-      res.status(500).json({
-        error: {
-          message: 'An error occurred during your request.',
-        }
+    const { taskDescription, deadline, milestones } = req.body;
+    const prompt = generatePrompt(taskDescription, deadline, milestones);
+  
+    try {
+      const completion = await openai.createCompletion({
+        model: "text-davinci-003",
+        prompt: prompt,
+        temperature: 0.6,
+        max_tokens: 100, // add a default value here
       });
+  
+      // Check if at least one choice is returned
+      if (completion.data.choices && completion.data.choices.length > 0) {
+        res.status(200).json({ result: completion.data.choices[0].text });
+      } else {
+        throw new Error("No choices returned from OpenAI API.");
+      }
+    } catch(error) {
+      if (error.response) {
+        console.error(error.response.status, error.response.data);
+        res.status(error.response.status).json(error.response.data);
+      } else {
+        console.error(`Error with OpenAI API request: ${error.message}`);
+        res.status(500).json({
+          error: {
+            message: 'An error occurred during your request.',
+          }
+        });
+      }
     }
   }
-}
+  
