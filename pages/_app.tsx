@@ -5,7 +5,7 @@ import { AuthProvider } from "../firebase/AuthContext";
 import Layout from "@/components/layouts/layout";
 import Header from "@/components/layouts/header";
 require("dotenv").config();
-import { RoleProvider } from "./RoleContext";
+import { RoleProvider } from "../utils/RoleContext";
 
 function App({ Component, pageProps, router }: AppProps) {
   // Removing navbar from home

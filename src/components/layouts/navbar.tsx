@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { RoleContext } from "../../../pages/RoleContext";
+import { RoleContext } from "../../../utils/RoleContext";
 import Image from "next/image";
 
 const Navbar: React.FC = () => {
