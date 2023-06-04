@@ -40,7 +40,7 @@ const Home: React.FC = () => {
     if (currentUser && currentUser.displayName) {
       router.push(`/${currentUser.displayName}`);
     }
-  }, [currentUser]);
+  }, [currentUser, router]);
 
   const handleGoogleLogin = async () => {
     if (showSignUp) {
