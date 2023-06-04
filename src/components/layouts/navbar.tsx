@@ -23,15 +23,20 @@ const Navbar: React.FC = () => {
   const links = role === 'manager' ? managerLinks : userLinks;
 
   const handleRoleChange = () => {
-    if(role === 'user') setRole('manager');
-    else if(role === 'manager') setRole('user');
+    if(role === 'user') {
+      setRole('manager');
+      router.push('/manager/dashboard');
+    } else if(role === 'manager') {
+      setRole('user');
+      router.push('/user/dashboard'); 
+    }
   };
 
   return (
     <div className="bg-base text-white w-30 fixed top-16 bottom-0 overflow-auto">
       <div className="p-4 bg-secondary">
         <div className="flex items-center">
-          <img src="your-logo-path" alt="logo" className="w-8 h-8 mr-2" />
+          <img src="icon" alt="icon" className="w-8 h-8 mr-2" />
           <div>
             <h2 className="text-lg font-bold">Your Role: {role}</h2>
             <p className="text-sm">Manager's Name</p>

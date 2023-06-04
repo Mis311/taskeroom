@@ -12,7 +12,7 @@ type RoleContextType = {
 
 // Setting initial value for context
 const initialContext: RoleContextType = {
-  role: "User",
+  role: "user",
   setRole: () => {},
 };
 
@@ -25,7 +25,7 @@ interface RoleProviderProps {
 export const RoleProvider: FunctionComponent<RoleProviderProps> = ({
   children,
 }) => {
-  const [role, setRole] = useState<string>("User"); // Default role
+  const [role, setRole] = useState<string>("user"); // Default role
 
   return (
     <RoleContext.Provider value={{ role, setRole }}>
