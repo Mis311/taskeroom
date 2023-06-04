@@ -37,8 +37,9 @@ const Home: React.FC = () => {
           <div className="w-64 h-64">
             <Image
               className="object-cover w-full h-full"
-              src="calendar.png"
+              src="/calendar.png"
               alt="calendar"
+              width={500} height={300}
             />
           </div>
         </section>
