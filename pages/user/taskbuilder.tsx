@@ -9,7 +9,8 @@ const TaskMaker = () => {
   const [milestones, setMilestones] = useState(false); // For the checkbox state
   const [aiSuggestSchedule, setAISuggestSchedule] = useState(false); // For the checkbox state
   const [aiSuggestAction, setAISuggestAction] = useState(false); // For the checkbox state
-  const [aiSuggestions, setAiSuggestions] = useState([]);
+  const [aiSuggestions, setAiSuggestions] = useState<any[]>([]);
+
   type Choice = {
     text: string;
     // other properties of a choice object
