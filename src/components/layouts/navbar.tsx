@@ -37,7 +37,7 @@ const Navbar: React.FC = () => {
     <div className="bg-base text-white w-30 fixed top-16 bottom-0 overflow-auto">
       <div className="p-4 bg-secondary">
         <div className="flex items-center">
-          <Image src="icon" alt="icon" className="w-8 h-8 mr-2" />
+          <Image src="/icon" alt="icon" width={32} height={32} className="w-8 h-8 mr-2" />
           <div>
             <h2 className="text-lg font-bold">Your Role: {role}</h2>
             <p className="text-sm">Manager&apos;s Name</p>
