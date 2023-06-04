@@ -5,7 +5,7 @@ type Todo = {
   completed: boolean;
 };
 
-const TodoList: React.FC = () => {
+const Dashboard: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [input, setInput] = useState("");
 
@@ -73,4 +73,4 @@ const TodoList: React.FC = () => {
   );
 };
 
-export default TodoList;
+export default Dashboard;
