@@ -1,5 +1,5 @@
-// pages/api/completion.js
 import { Configuration, OpenAIApi } from "openai";
+import { NextApiHandler } from "next";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -20,7 +20,7 @@ function generatePrompt(taskDescription, deadline, milestones) {
   `;
 }
 
-export default async function (req, res) {
+export default async function Completion (req, res) {
     const { taskDescription, deadline, milestones } = req.body;
     const prompt = generatePrompt(taskDescription, deadline, milestones);
   
@@ -29,10 +29,10 @@ export default async function (req, res) {
         model: "text-davinci-003",
         prompt: prompt,
         temperature: 0.6,
-        max_tokens: 100, // add a default value here
+        max_tokens: 100, // can changee
       });
   
-      // Check if at least one choice is returned
+     
       if (completion.data.choices && completion.data.choices.length > 0) {
         res.status(200).json({ result: completion.data.choices[0].text });
       } else {

@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-200">
-      <h1 className="text-2xl font-bold mb-4">Seller's Todo List</h1>
+      <h1 className="text-2xl font-bold mb-4">Seller&apos;s Todo List</h1>
       <div className="mb-4">
         <input
           className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
