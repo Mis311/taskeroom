@@ -1,6 +1,6 @@
 import React from "react";
 import Layout from "@/components/layouts/layout";
-
+import Image from "next/image";
 const Home: React.FC = () => {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
@@ -18,8 +18,8 @@ const Home: React.FC = () => {
           </h2>
 
           <p className="mt-4 text-xl text-gray-500">
-            Let&apos;s get things done and complete your life together with AI and
-            automate execution sessions with your new friends.
+            Let&apos;s get things done and complete your life together with AI
+            and automate execution sessions with your new friends.
           </p>
 
           <div className="flex items-center justify-center mt-8 space-y-4 flex-col md:flex-row md:space-y-0 md:space-x-4">
@@ -35,7 +35,7 @@ const Home: React.FC = () => {
 
         <section className="flex flex-col items-center justify-center">
           <div className="w-64 h-64">
-            <img
+            <Image
               className="object-cover w-full h-full"
               src="calendar.png"
               alt="calendar"
