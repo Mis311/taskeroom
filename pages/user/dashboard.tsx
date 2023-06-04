@@ -14,7 +14,7 @@ const Dashboard = () => {
       <div className="flex flex-grow">
         <div className="w-1/4 p-4 overflow-y-scroll">
           <h1 className="text-2xl font-bold text-purple-700 mb-4">
-            Seller's Todo List
+            Seller&apos;s Todo Lists Todo List
           </h1>
           {todos.map((todo, index) => (
             <div

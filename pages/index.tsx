@@ -5,7 +5,7 @@ import { useAuth } from "../firebase/AuthContext";
 import { useRouter } from "next/router";
 import {FcGoogle} from "react-icons/fc";
 import {AiOutlineMail} from "react-icons/ai";
-
+import Image from "next/image";
 const Home: React.FC = () => {
   const {currentUser, googleSignIn, login, signUpUser} = useAuth();
   const router = useRouter();
@@ -122,10 +122,11 @@ const Home: React.FC = () => {
 
           <section className="flex flex-col items-center justify-center">
             <div className="w-64 h-64">
-              <img
+              <Image 
                 className="object-cover w-full h-full"
                 src="calendar.png"
                 alt="calendar"
+                width={500} height={300} 
               />
             </div>
           </section>
