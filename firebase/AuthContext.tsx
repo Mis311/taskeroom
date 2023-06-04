@@ -51,12 +51,20 @@ export function AuthProvider({ children }:any) {
     const [currentUser, setCurrentUser] = useState<any>()
     const [loading, setLoading] = useState(true)
 
-    function signUpUser(email:string,password:string) {
-        return createUserWithEmailAndPassword(auth, email, password)
+    function signUpUser(email:string,password:string, role:string) {
+        return createUserWithEmailAndPassword(auth, email, password).then(function(result) {
+            return updateProfile(result.user, {displayName: role})
+        })
     }
 
-    function googleSignIn() {
-        return signInWithPopup(auth, provider)
+    function googleSignIn(role?:string) {
+        return signInWithPopup(auth, provider).then(function(result) {
+            if (role) {
+                return updateProfile(result.user, {displayName: role})
+            } else {
+                return
+            }
+        })
     }
 
     function logIn(email:string, password:string) {
