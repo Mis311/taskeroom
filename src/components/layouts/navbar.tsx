@@ -88,7 +88,7 @@ const Navbar: React.FC = () => {
       <div className="fixed bottom-0 left-0  p-4 bg-base">
         <button
           onClick={handleRoleChange}
-          className="w-full py-2 text-center bg-secondary"
+          className="w-full py-2 text-center bg-secondary p-2 rounded"
         >
           Switch to {role === "manager" ? "User" : "Manager"} View
         </button>
