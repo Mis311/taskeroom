@@ -42,7 +42,7 @@ const Dashboard = () => {
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState("not completed");
 
-  const userId = "xyz"; //  manager's user_id here
+  const userId = "manager1"; //  manager's user_id here
 
   const handleCreateTask = async () => {
     try {
