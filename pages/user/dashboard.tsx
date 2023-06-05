@@ -17,7 +17,7 @@ const Dashboard = () => {
   const events: any[] = []; // to add events
 
   return (
-    <div className="flex flex-col h-screen ml-56 ">
+    <div className="flex flex-col h-screen ">
       {/* Overall Progress */}
       <div className="w-full p-4 text-center items-center flex justify-center border-b border-white">
         <Image

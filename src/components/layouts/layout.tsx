@@ -10,7 +10,7 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ children, navbar = true, header = false }) => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen ">
       {header && (
         <header className="bg-indigo-400 text-white p-4 text-center">
           <Link href="/">
@@ -19,7 +19,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navbar = true, header = false
         </header>
       )}
       {navbar && <Navbar />}
-      <main className="flex-grow p-6">{children}</main>
+      <main className="flex-grow p-6 ml-64">{children}</main>
     </div>
   );
 };
