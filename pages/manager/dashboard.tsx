@@ -94,8 +94,10 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    if (currentUser) {
+      fetchTasks();
+    }
+  }, [currentUser]);
   return (
     <div className="container mx-auto my-5 p-5">
       <h1 className="text-2xl font-bold mb-5">Manager Dashboard</h1>
