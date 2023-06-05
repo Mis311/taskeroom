@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { teamsData } from "./teamsData.js";
+import { teamsData } from "../../data/teamsData.js/index.js";
 
 export default function ManagerTeams() {
   const [isHovered, setIsHovered] = useState(false);
