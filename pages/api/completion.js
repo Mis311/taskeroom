@@ -20,7 +20,7 @@ function generatePrompt(taskDescription, deadline, milestones) {
   `;
 }
 
-export default async function Completion (req, res) {
+async function Completion (req, res) {
     const { taskDescription, deadline, milestones } = req.body;
     const prompt = generatePrompt(taskDescription, deadline, milestones);
   
@@ -53,3 +53,4 @@ export default async function Completion (req, res) {
     }
   }
   
+export default Completion

@@ -7,7 +7,7 @@ import { FcGoogle } from "react-icons/fc";
 import { AiOutlineMail } from "react-icons/ai";
 import Image from "next/image";
 const Home: React.FC = () => {
-  const { currentUser, googleSignIn, login, signUpUser } = useAuth();
+  const { currentUser, googleSignIn, login, signUpUser, logOut } = useAuth();
   const router = useRouter();
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
@@ -17,6 +17,7 @@ const Home: React.FC = () => {
   const [error, setError] = useState(false);
 
   const emailRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+  const usernameRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const passwordRef = useRef() as React.MutableRefObject<HTMLInputElement>;
   const confirmPassRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -37,15 +38,16 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
+
     if (currentUser && currentUser.displayName) {
-      router.push(`/${currentUser.displayName}`);
+      router.push(`/${currentUser.displayName}/dashboard`);
     }
   }, [currentUser, router]);
 
   const handleGoogleLogin = async () => {
     if (showSignUp) {
       await googleSignIn(role);
-      router.push(`/${role}`);
+      router.push(`/${role}/dashboard`);
     } else {
       await googleSignIn();
     }
@@ -60,18 +62,19 @@ const Home: React.FC = () => {
 
   const handleSignUp = async () => {
     const email = emailRef.current.value;
+    const username = usernameRef.current.value;
     const password = passwordRef.current.value;
     const confirmPass = confirmPassRef.current.value;
 
-    if (email === "" || password === "" || confirmPass === "") {
+    if (username === "" || email === "" || password === "" || confirmPass === "") {
       return;
     } else if (password !== confirmPass) {
       return;
     } else {
       try {
-        await signUpUser(email, password, role);
+        await signUpUser(email, password, role, username);
         setShowSignUp(false);
-        router.push(`/${role}`);
+        router.push(`/${role}/dashboard`);
       } catch (error) {
         setError(true);
         setTimeout(() => {
@@ -225,6 +228,12 @@ const Home: React.FC = () => {
           <div className="bg-white w-full h-full absolute bg-opacity-40 flex items-center justify-center">
             {showEmailSignUp ? (
               <div className="w-96 h-64 bg-[#efefef] rounded-md shadow-md flex items-center justify-center gap-2 flex-col relative">
+                <input
+                  type="text"
+                  ref={usernameRef}
+                  placeholder="Username..."
+                  className="rounded-md outline-none shadow-md p-1 w-[280px] font-rubik"
+                />
                 <input
                   type="email"
                   ref={emailRef}
