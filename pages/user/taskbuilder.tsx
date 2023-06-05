@@ -18,28 +18,7 @@ const TaskMaker = () => {
     // other properties of a choice object
   };
 
-  const setTaskData = async (taskName:string, deadline:string, ai_gen:string) => {
-    try {
-      let res = await fetch(`http://taskeroom.akubuezeernest.com/create_task/${currentUser?.uid}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        task_name: taskName,
-        task_description: ai_gen,
-        task_deadline: deadline,
-        price: 0,
-        task_status: "not completed",
-    })
-  })
-  const data = await res.json()
-  console.log(data)
-    } catch (error) {
-      console.log(error)
-    }
-  
-  }
+
 
   const handleTaskSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,7 +39,6 @@ const TaskMaker = () => {
       const data = await response.json();
       if (data && data.result) {
         setAiSuggestions([data.result]);
-        //await setTaskData(taskDescription, deadline, data.result)
       } else {
         throw new Error("Unexpected API response format");
       }
@@ -70,19 +48,7 @@ const TaskMaker = () => {
     // Add code to add the task to your dashboard or whatever else you need to do with the task
   };
 
-  const getTasks = async () => {
-    try {
-      const res = await fetch(`http://taskeroom.akubuezeernest.com/tasks`)
-      const data = await res.json()
-      
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
-  useEffect(() => {
-   //getTasks()
-  }, []);
 
   return (
     <>
