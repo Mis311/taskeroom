@@ -41,14 +41,36 @@ const TaskMaker = () => {
     } catch (error) {
       console.error("Failed to fetch AI suggestions:", error);
     }
-    // Add code to add the task to your dashboard or whatever else you need to do with the task
+    // add the task 
   };
-
+  const todos = [
+    "Inventory System Optimization",
+    "Campaign Planning",
+    "Social Media Update",
+    "Product Description",
+    "CS Training",
+    "Customer Feedback",
+  ];
   return (
     <>
-     
-        <div className="flex flex-col items-center p-4 font-sans text-gray-800 bg-gray-200 w-full min-w-full">
-          <h2>Add Your Task</h2>
+     <div className="flex  items-center p-4 font-sans text-gray-800 bg-gray-200 w-full min-w-full">
+      {/* Todo List */}
+      <div className="w-1/4 p-4 ">
+          <h1 className="text-2xl font-bold text-purple-700 mb-4">
+            Seller&apos;s Todo Lists
+          </h1>
+          {todos.map((todo, index) => (
+            <div
+              key={index}
+              className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer"
+            >
+              <p className="text-purple-600">{todo}</p>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col items-center w-full ">
+       
+          <h2 className="">Add Your Task</h2>
           <form
             className="flex flex-col mb-8 w-3/5"
             onSubmit={handleTaskSubmit}
@@ -111,6 +133,7 @@ const TaskMaker = () => {
                 </div>
               ))}
           </div>
+        </div>
         </div>
    
     </>

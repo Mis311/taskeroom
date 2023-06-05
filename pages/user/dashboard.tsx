@@ -4,7 +4,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Image from "next/image";
 import axios from "axios";
-import { FaEnvelope } from "react-icons/fa";
+import { FaEnvelope, FaCheck } from "react-icons/fa";
 import Modal from "react-modal";
 
 type Event = {
@@ -13,15 +13,32 @@ type Event = {
   end: Date;
 };
 
+type Todo = {
+  task: string;
+  isChecked: boolean;
+};
 const Dashboard = () => {
-  const [todos, setTodos] = useState([
-    "Inventory System Optimization",
-    "Campaign Planning",
-    "Social Media Update",
-    "Product Description",
-    "CS Training",
-    "Customer Feedback",
+  const [todos, setTodos] = useState<Todo[]>([
+    { task: "Inventory System Optimization", isChecked: false },
+    { task: "Campaign Planning", isChecked: false },
+    { task: "Social Media Update", isChecked: false },
+    { task: "Product Description", isChecked: false },
+    { task: "CS Training", isChecked: false },
+    { task: "Customer Feedback", isChecked: false },
   ]);
+
+  const [showReportButton, setShowReportButton] = useState(false);
+
+  // Function to handle checkbox click
+const handleCheck = (index:any) => {
+  const newTodos = [...todos];
+  newTodos[index].isChecked = !newTodos[index].isChecked;
+  setTodos(newTodos);
+
+    // If all tasks are checked, show the "Report to Manager" button
+    setShowReportButton(newTodos.every(todo => todo.isChecked));
+  };
+
 
   const aiSuggestSessionTime = () => {
     const start = new Date();
@@ -117,35 +134,40 @@ const Dashboard = () => {
             <p>{task.task_description}</p>
           </div>
         ))}to be updated */}
-        <button onClick={closeModal} className="absolute top-0 right-0 bg-gray-500 text-white p-2 rounded-bl">X</button>
         <button
-          onClick={() => {
-            if (selectedTask) {
-              setTodos([...todos, selectedTask]);
-              setSelectedTask(null);
-              closeModal();
-            }
-          }}
+          onClick={closeModal}
+          className="absolute top-0 right-0 bg-gray-500 text-white p-2 rounded-bl"
         >
-          Confirm
+          X
         </button>
+        <button
+  className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer"
+  onClick={() => {
+    if (selectedTask) {
+      setTodos([...todos, { task: selectedTask, isChecked: false }]);
+      setSelectedTask(null);
+      closeModal();
+    }
+  }}
+>
+  Confirm
+</button>
       </Modal>
 
       <div className="w-full bg-white h-3"></div>
       <div className="flex flex-grow">
         <div className="w-1/4 p-4 ">
-          <h1 className="text-2xl font-bold text-purple-700 mb-4">
-            Seller&apos;s Todo Lists
-          </h1>
-          {todos.map((todo, index) => (
-            <div
-              key={index}
-              className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer"
-            >
-              <p className="text-purple-600">{todo}</p>
-            </div>
-          ))}
-        </div>
+              <h1 className="text-2xl font-bold text-purple-700 mb-4">Seller&apos;s Todo Lists</h1>
+    {todos.map((todo, index) => (
+      <div key={index} className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer">
+        <input type="checkbox" checked={todo.isChecked} onChange={() => handleCheck(index)} />
+        <p className={`text-purple-600 ${todo.isChecked ? 'line-through' : ''}`}>{todo.task}</p>
+      </div>
+    ))}
+    {showReportButton && (
+      <button className="bg-green-600 text-white p-2 rounded">Report to Manager</button>
+    )}
+    </ div>
 
         {/* Progress tree */}
         <div className="w-2/4 p-4 ">
