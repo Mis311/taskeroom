@@ -36,8 +36,13 @@ const Dashboard = () => {
 
         {/* Progress tree */}
         <div className="w-2/4 p-4 ">
-          <p>Progress tree</p>
-          <Image src="/barchart.png" alt="progress-tree" width={300} height={400} ></Image>
+        
+          <Image
+            src="/component.png"
+            alt="barchart"
+            width={500}
+            height={800}
+          ></Image>
           {/* to be replaced */}
         </div>
         {/* Schedule booking */}
