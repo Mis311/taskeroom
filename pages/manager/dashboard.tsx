@@ -1,155 +1,155 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+//mockup data
+const taskOptions = [
+  "Inventory Check",
+  "Product Quality Assurance",
+  "Sales Reporting",
+  "Customer Feedback Collection",
+  "Product Restock",
+  "Promotion Planning",
+];
 
-type Todo = {
-  task: string;
-  completed: boolean;
-};
+const descriptionOptions = [
+  "Check and update the current inventory status for all products.",
+  "Perform a quality check on incoming products from suppliers.",
+  "Create a comprehensive sales report for this month.",
+  "Collect and summarize customer feedback on newly released products.",
+  "Manage the restocking of products that are low in inventory.",
+  "Plan a promotion for slow-moving products to boost their sales.",
+];
 
-const Dashboard: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [input, setInput] = useState("");
+// Example deadlines (modifiable)
+const taskDeadlines = [
+  "2023-05-20",
+  "2023-05-25",
+  "2023-05-28",
+  "2023-05-30",
+  "2023-06-01",
+  "2023-06-05",
+];
 
-  const [tasksToDistribute, setTasksToDistribute] = useState([
-    {
-      task: "Task 1",
-      points: Math.floor(Math.random() * 100),
-      progress: Math.random() > 0.5,
-    },
-    {
-      task: "Task 2",
-      points: Math.floor(Math.random() * 100),
-      progress: Math.random() > 0.5,
-    },
-    {
-      task: "Task 3",
-      points: Math.floor(Math.random() * 100),
-      progress: Math.random() > 0.5,
-    },
-    {
-      task: "Task 4",
-      points: Math.floor(Math.random() * 100),
-      progress: Math.random() > 0.5,
-    },
-    {
-      task: "Task 5",
-      points: Math.floor(Math.random() * 100),
-      progress: Math.random() > 0.5,
-    },
-    {
-      task: "Task 6",
-      points: Math.floor(Math.random() * 100),
-      progress: Math.random() > 0.5,
-    },
-  ]);
-  const tokens = Math.floor(Math.random() * 100);
-  const teamProductivityScore = Math.floor(Math.random() * 100);
-  const [feedback, setFeedback] = useState("");
+// Example prices (modifiable)
+const prices = [100, 200, 150, 120, 180, 210];
 
-  const handleAddTask = () => {
-    if (input !== "") {
-      setTodos((prevTodos) => [
-        ...prevTodos,
-        { task: input, completed: false },
-      ]);
-      setInput("");
+const Dashboard = () => {
+  const [todos, setTodos] = useState([]);
+  const [selectedTask, setSelectedTask] = useState(taskOptions[0]);
+  const [selectedDescription, setSelectedDescription] = useState(
+    descriptionOptions[0]
+  );
+  const [taskDeadline, setTaskDeadline] = useState("");
+  const [price, setPrice] = useState("");
+  const [status, setStatus] = useState("not completed");
+
+  const userId = "xyz"; //  manager's user_id here
+
+  const handleCreateTask = async () => {
+    try {
+      await axios.post(`/create_task/${userId}`, {
+        task_name: selectedTask,
+        task_description: selectedDescription,
+        task_deadline: taskDeadline,
+        price: price,
+        status: status,
+      });
+      fetchTasks();
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleToggleComplete = (index: number) => {
-    setTodos((prevTodos) =>
-      prevTodos.map((todo, todoIndex) =>
-        todoIndex === index ? { ...todo, completed: !todo.completed } : todo
-      )
-    );
+  const fetchTasks = async () => {
+    try {
+      const res = await axios.get(`/task/${userId}`);
+      setTodos(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const handleRemoveTask = (index: number) => {
-    setTodos((prevTodos) =>
-      prevTodos.filter((_, todoIndex) => todoIndex !== index)
-    );
+  const fetchAllTasks = async () => {
+    try {
+      const res = await axios.get("/tasks");
+      setTodos(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
+  useEffect(() => {
+    fetchTasks();
+  }, []);
   return (
-    <div className="flex flex-wrap items-center justify-center h-screen bg-gray-200">
-      <h1 className="text-2xl font-bold mb-4">Seller&apos;s Todo List</h1>
-      <div className="mb-4">
-        <input
-          className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Enter new task"
-        />
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={handleAddTask}
+    <div className="container mx-auto my-5 p-5">
+      <h1 className="text-2xl font-bold mb-5">Manager Dashboard</h1>
+
+      <div className="mb-5">
+        <label className="block mb-2">Select Task</label>
+        <select
+          value={selectedTask}
+          onChange={(e) => setSelectedTask(e.target.value)}
         >
-          Add Task
-        </button>
+          {taskOptions.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {todos.map((todo, index) => (
-        <div
-          className="flex items-center justify-between w-full mb-2"
-          key={index}
+      <div className="mb-5">
+        <label className="block mb-2">Select Description</label>
+        <select
+          value={selectedDescription}
+          onChange={(e) => setSelectedDescription(e.target.value)}
         >
-          <p
-            className={`w-1/2 ${
-              todo.completed ? "line-through text-green-500" : ""
-            }`}
-          >
-            {todo.task}
-          </p>
-          <div className="space-x-2">
-            <button
-              className={`bg-${
-                todo.completed ? "yellow" : "green"
-              }-500 hover:bg-${
-                todo.completed ? "yellow" : "green"
-              }-700 text-white font-bold py-1 px-2 rounded`}
-              onClick={() => handleToggleComplete(index)}
-            >
-              {todo.completed ? "Undo" : "Complete"}
-            </button>
-            <button
-              className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
-              onClick={() => handleRemoveTask(index)}
-            >
-              Remove
-            </button>
-          </div>
-        </div>
-      ))}
+          {descriptionOptions.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <h2 className="bg-white shadow text-xl font-bold mb-4 mt-4">
-        Tasks Distributed
-      </h2>
-      {tasksToDistribute.map((task, index) => (
-        <div key={index}>
-          <p>{task.task}</p>
-          <p>Points: {task.points}</p>
-          <p>Progress: {task.progress ? "✓" : "✗"}</p>
-        </div>
-      ))}
+      <div className="mb-5">
+        <label className="block mb-2">Task Deadline</label>
+        <input
+          type="date"
+          value={taskDeadline}
+          onChange={(e) => setTaskDeadline(e.target.value)}
+        />
+      </div>
 
-      <h2 className="text-xl font-bold mb-4 mt-4">Tokens for Vendors</h2>
-      <p>{tokens}</p>
+      <div className="mb-5">
+        <label className="block mb-2">Price</label>
+        <input
+          type="number"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+      </div>
 
-      <h2 className="text-xl font-bold mb-4 mt-4">Team Productivity Score</h2>
-      <p>{teamProductivityScore}%</p>
+      <div className="mb-5">
+        <label className="block mb-2">Status</label>
+        <select
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+        >
+          <option value="not completed">Not Completed</option>
+          <option value="in progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
 
-      <h2 className="text-xl font-bold mb-4 mt-4">Feedback</h2>
-      <textarea
-        value={feedback}
-        onChange={(e) => setFeedback(e.target.value)}
-      />
       <button
-        onClick={() => {
-          /* to be updated */
-        }}
+        className="py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none"
+        onClick={handleCreateTask}
       >
-        Send Feedback
+        Add Task
       </button>
     </div>
   );
 };
+
 export default Dashboard;
