@@ -4,11 +4,15 @@ import Navbar from "./navbar";
 
 type LayoutProps = {
   children: React.ReactNode;
-  navbar?: boolean; 
+  navbar?: boolean;
   header?: boolean;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children, navbar = true, header = false }) => {
+const Layout: React.FC<LayoutProps> = ({
+  children,
+  navbar = true,
+  header = false,
+}) => {
   return (
     <div className="flex flex-col min-h-screen ">
       {header && (
@@ -19,7 +23,7 @@ const Layout: React.FC<LayoutProps> = ({ children, navbar = true, header = false
         </header>
       )}
       {navbar && <Navbar />}
-      <main className="flex-grow p-6 ml-64">{children}</main>
+      <main className={`flex-grow p-6 ${navbar ? 'ml-64' : ''}`}>{children}</main>
     </div>
   );
 };
