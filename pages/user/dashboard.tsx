@@ -3,10 +3,9 @@ import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import Image from "next/image";
-import axios from 'axios';
-import { FaEnvelope } from 'react-icons/fa';
-import Modal from 'react-modal';
-
+import axios from "axios";
+import { FaEnvelope } from "react-icons/fa";
+import Modal from "react-modal";
 
 type Event = {
   title: string;
@@ -15,14 +14,14 @@ type Event = {
 };
 
 const Dashboard = () => {
-  const todos = [
+  const [todos, setTodos] = useState([
     "Inventory System Optimization",
     "Campaign Planning",
     "Social Media Update",
     "Product Description",
     "CS Training",
     "Customer Feedback",
-  ];
+  ]);
 
   const aiSuggestSessionTime = () => {
     const start = new Date();
@@ -70,11 +69,14 @@ const Dashboard = () => {
 
   const [modalIsOpen, setIsOpen] = useState(false);
   const [managerTask, setManagerTask] = useState("");
+  const [selectedTask, setSelectedTask] = useState<string | null>(null);
 
   const fetchManagerTask = async () => {
+    setIsOpen(true);
     try {
-      //get request to the API
-      const response = await axios.get('http://taskeroom.akubuezeernest.com/task/manager1'); 
+      const response = await axios.get(
+        "http://taskeroom.akubuezeernest.com/task/manager1"
+      );
       setManagerTask(response.data);
     } catch (err) {
       console.error(err);
@@ -83,7 +85,7 @@ const Dashboard = () => {
 
   const closeModal = () => {
     setIsOpen(false);
-  }
+  };
   return (
     <div className="flex flex-col h-screen ">
       {/* Overall Progress */}
@@ -95,9 +97,12 @@ const Dashboard = () => {
           height={200}
         />
       </div>
-       {/* Mail Icon and Task */}
-       <div className="absolute right-0 top-0 mr-8 mt-8 w-6 h-6">
-        <FaEnvelope onClick={fetchManagerTask} className="text-gray-500 cursor-pointer w-12 h-12 p-2 absolute right-0 mr-4 " />
+      {/* Mail Icon and Task */}
+      <div className="absolute right-0 top-0 mr-8 mt-8 w-6 h-6">
+        <FaEnvelope
+          onClick={fetchManagerTask}
+          className="text-gray-500 cursor-pointer w-12 h-12 p-2 absolute right-0 mr-4 "
+        />
       </div>
       {/* Modal */}
       <Modal
@@ -105,9 +110,25 @@ const Dashboard = () => {
         onRequestClose={closeModal}
         contentLabel="Manager Task Modal"
       >
-        <h2>Manager Task</h2>
-        <p>{managerTask}</p>
-        <button onClick={closeModal}>Close</button>
+        <h2>Manager's Tasks</h2>
+        {/* {managerTask.map((task) => (
+          <div key={task.task_name}>
+            <h3>{task.task_name}</h3>
+            <p>{task.task_description}</p>
+          </div>
+        ))}to be updated */}
+        <button onClick={closeModal} className="absolute top-0 right-0 bg-gray-500 text-white p-2 rounded-bl">X</button>
+        <button
+          onClick={() => {
+            if (selectedTask) {
+              setTodos([...todos, selectedTask]);
+              setSelectedTask(null);
+              closeModal();
+            }
+          }}
+        >
+          Confirm
+        </button>
       </Modal>
 
       <div className="w-full bg-white h-3"></div>
@@ -151,11 +172,11 @@ const Dashboard = () => {
                 Add to Calendar
               </button>
               <button
-              onClick={() => setIsPopupOpen(false)}
-              className="absolute top-0 right-0 bg-gray-500 text-white p-2 rounded-bl"
-            >
-              x
-            </button>
+                onClick={() => setIsPopupOpen(false)}
+                className="absolute top-0 right-0 bg-gray-500 text-white p-2 rounded-bl"
+              >
+                x
+              </button>
             </div>
           )}
           <Calendar

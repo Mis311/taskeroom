@@ -7,9 +7,11 @@ import Header from "@/components/layouts/header";
 require("dotenv").config();
 import { RoleProvider } from "../utils/RoleContext";
 
+
 function App({ Component, pageProps, router }: AppProps) {
   // Removing navbar from home
   const isHomePage = router.pathname === "/";
+
 
   return (
     <AuthProvider>
