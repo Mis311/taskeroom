@@ -51,19 +51,46 @@ export function AuthProvider({ children }:any) {
     const [currentUser, setCurrentUser] = useState<any>()
     const [loading, setLoading] = useState(true)
 
-    function signUpUser(email:string,password:string, role:string) {
-        return createUserWithEmailAndPassword(auth, email, password).then(function(result) {
-            return updateProfile(result.user, {displayName: role})
+    function signUpUser(email:string,password:string, role:string, username:string) {
+        return createUserWithEmailAndPassword(auth, email, password).then(function(result1) {
+            return updateProfile(result1.user, {displayName: role}).then(function(result) {
+                fetch('http://taskeroom.akubuezeernest.com/save_user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: result1.user.uid,
+                        user_email: email,
+                        user_name: username,
+                        status: role
+                    })
+                })
+            })
         })
     }
 
     function googleSignIn(role?:string) {
         return signInWithPopup(auth, provider).then(function(result) {
             if (role) {
+                fetch('http://taskeroom.akubuezeernest.com/save_user', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        user_id: result.user.uid,
+                        user_email: result.user.email,
+                        user_name: result.user.displayName,
+                        status: role
+                    })
+                }).then(function(result2) {
                 return updateProfile(result.user, {displayName: role})
+                })
             } else {
-                return
+                return 
             }
+            
         })
     }
 
