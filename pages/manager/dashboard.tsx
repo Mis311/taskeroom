@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../../firebase/AuthContext";
 //mockup data
 const taskOptions = [
   "Inventory Check",
@@ -38,6 +39,7 @@ const Dashboard = () => {
   const [selectedDescription, setSelectedDescription] = useState(
     descriptionOptions[0]
   );
+  const {currentUser} = useAuth()
   const [taskDeadline, setTaskDeadline] = useState("");
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState("not completed");
@@ -46,34 +48,48 @@ const Dashboard = () => {
 
   const handleCreateTask = async () => {
     try {
-      await axios.post(`/create_task/${userId}`, {
+      let res = await fetch(`http://taskeroom.akubuezeernest.com/create_task/${currentUser?.uid}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         task_name: selectedTask,
         task_description: selectedDescription,
         task_deadline: taskDeadline,
-        price: price,
+        price: parseInt(price),
         status: status,
-      });
-      fetchTasks();
+    })
+  })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
-  };
+  
+  }
 
   const fetchTasks = async () => {
     try {
-      const res = await axios.get(`/task/${userId}`);
-      setTodos(res.data);
+      const res = await fetch(`http://taskeroom.akubuezeernest.com/task/${currentUser?.uid}`)
+      const data = await res.json()
+      if (data["All Tasks"]) {
+        setTodos(data["All Tasks"])
+      }
+      console.log(data["All Tasks"])
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   };
 
   const fetchAllTasks = async () => {
     try {
-      const res = await axios.get("/tasks");
-      setTodos(res.data);
+      const res = await fetch(`http://taskeroom.akubuezeernest.com/tasks`)
+      const data = await res.json()
+      if (data["All Tasks"]) {
+        setTodos(data["All Tasks"])
+      }
+      console.log(data["All Tasks"])
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   };
 
