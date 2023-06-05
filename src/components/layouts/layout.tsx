@@ -8,7 +8,7 @@ type LayoutProps = {
   header?: boolean;
 };
 
-const Layout: React.FC<LayoutProps> = ({ children, navbar = true, header = true }) => {
+const Layout: React.FC<LayoutProps> = ({ children, navbar = true, header = false }) => {
   return (
     <div className="flex flex-col min-h-screen">
       {header && (

@@ -34,11 +34,11 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <div className="bg-base text-white w-30 fixed top-16 bottom-0 overflow-auto">
+    <div className="bg-base text-white w-30 fixed top-0 bottom-0 overflow-auto">
       <div className="p-4 bg-secondary">
         <div className="flex items-center">
           <Image
-            src="/icon"
+            src="/icon.png"
             alt="icon"
             width={32}
             height={32}
@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
           />
           <div>
             <h2 className="text-lg font-bold">Your Role: {role}</h2>
-            <p className="text-sm">Manager&apos;s Name</p>
+            <p className="text-sm">Managed by <span className="font-bold text-green-300 cursor-pointer">Sir DoggyDog</span></p>
           </div>
         </div>
       </div>
