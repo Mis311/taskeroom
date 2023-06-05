@@ -84,8 +84,9 @@ const Home: React.FC = () => {
   return (
     <Layout header={true} navbar={false}>
       <div className="flex flex-col items-center ml-16 mr-16 justify-center  max-h-screen  ${navbar ? 'ml-64' : ''}`">
-        <div className="flex flex-col md:flex-row md:space-x-5 space-y-5 p-6 md:space-y-0 ">
-          <section className="flex flex-col items-center text-left md:w-2/5">
+        <div className="flex flex-col md:flex-row md:space-x-5 space-y-5 mb-12 md:space-y-0 ">
+
+          <section className="flex flex-col items-center text-left md:w-2/5 mt-4">
             <h2 className="text-5xl font-middle font-semibold leading-relaxed p-2 text-left">
               Automate and go ahead of your life
             </h2>
@@ -123,7 +124,7 @@ const Home: React.FC = () => {
             </div>
           </section>
 
-          <section className="flex flex-col items-center justify-center ml-12">
+          <section className="flex flex-col items-center justify-center ml-12 mt-4">
             <div className="w-full">
               <Image
                 src="/calendar.png"
@@ -135,7 +136,7 @@ const Home: React.FC = () => {
             </div>
           </section>
 
-          <section className="flex flex-col items-center  w-2/5">
+          <section className="flex flex-col items-center  w-2/5 ">
             <h2 className="text-3xl text-right  ">
               May <span className="text-6xl">23rd</span> 2023
             </h2>
