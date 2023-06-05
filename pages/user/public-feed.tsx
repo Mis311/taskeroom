@@ -2,7 +2,7 @@ import React from 'react'
 
 const publicFeed = () => {
   return (
-    <div>piblicFeed</div>
+    <div>publicFeed</div>
   )
 }
 

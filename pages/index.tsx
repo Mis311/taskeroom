@@ -84,9 +84,9 @@ const Home: React.FC = () => {
   return (
     <Layout header={true} navbar={false}>
       <div className="flex flex-col items-center ml-16 mr-16 justify-center  max-h-screen  ${navbar ? 'ml-64' : ''}`">
-        <div className="flex flex-col md:flex-row md:space-x-5 space-y-5 mb-12 md:space-y-0 ">
+        <div className="flex flex-col md:flex-row md:space-x-5 space-y-5  md:space-y-0 ">
 
-          <section className="flex flex-col items-center text-left md:w-2/5 mt-4">
+          <section className="flex flex-col items-center text-left md:w-2/5 mt-10">
             <h2 className="text-5xl font-middle font-semibold leading-relaxed p-2 text-left">
               Automate and go ahead of your life
             </h2>
@@ -124,7 +124,7 @@ const Home: React.FC = () => {
             </div>
           </section>
 
-          <section className="flex flex-col items-center justify-center ml-12 mt-4">
+          <section className="flex flex-col items-center justify-center ml-12 mt-10">
             <div className="w-full">
               <Image
                 src="/calendar.png"
@@ -137,17 +137,19 @@ const Home: React.FC = () => {
           </section>
 
           <section className="flex flex-col items-center  w-2/5 ">
-            <h2 className="text-3xl text-right  ">
+            <h2 className="text-3xl text-right mt-10 ">
               May <span className="text-6xl">23rd</span> 2023
             </h2>
 
-            <ul className="flex flex-col space-y-4 mt-4">
+            <ul className="flex flex-col space-y-4 mt-10">
               <li className="text-2xl border-b border-gray-400">todo1</li>
               <li className="text-2xl border-b border-gray-400">todo2</li>
               <li className="text-2xl border-b border-gray-400">todo3</li>
             </ul>
 
-            <button className="w-16 h-16 mt-12 text-white bg-black rounded-full cursor-pointer">
+            <button onClick={() => {
+                  setShowSignUp(true);
+                }} className="w-16 h-16 mt-12 text-white bg-black rounded-full cursor-pointer">
               ➡
             </button>
             <p>Automate</p>
