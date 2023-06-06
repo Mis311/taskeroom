@@ -30,15 +30,14 @@ const Dashboard = () => {
   const [showReportButton, setShowReportButton] = useState(false);
 
   // Function to handle checkbox click
-const handleCheck = (index:any) => {
-  const newTodos = [...todos];
-  newTodos[index].isChecked = !newTodos[index].isChecked;
-  setTodos(newTodos);
+  const handleCheck = (index: any) => {
+    const newTodos = [...todos];
+    newTodos[index].isChecked = !newTodos[index].isChecked;
+    setTodos(newTodos);
 
     // If all tasks are checked, show the "Report to Manager" button
-    setShowReportButton(newTodos.every(todo => todo.isChecked));
+    setShowReportButton(newTodos.every((todo) => todo.isChecked));
   };
-
 
   const aiSuggestSessionTime = () => {
     const start = new Date();
@@ -104,7 +103,7 @@ const handleCheck = (index:any) => {
     setIsOpen(false);
   };
   return (
-    <div className="flex flex-col h-screen ">
+    <div className="flex flex-col h-screen z-0">
       {/* Overall Progress */}
       <div className="w-full p-4 text-center items-center flex justify-center border-b border-white">
         <Image
@@ -141,33 +140,50 @@ const handleCheck = (index:any) => {
           X
         </button>
         <button
-  className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer"
-  onClick={() => {
-    if (selectedTask) {
-      setTodos([...todos, { task: selectedTask, isChecked: false }]);
-      setSelectedTask(null);
-      closeModal();
-    }
-  }}
->
-  Confirm
-</button>
+          className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer"
+          onClick={() => {
+            if (selectedTask) {
+              setTodos([...todos, { task: selectedTask, isChecked: false }]);
+              setSelectedTask(null);
+              closeModal();
+            }
+          }}
+        >
+          Confirm
+        </button>
       </Modal>
 
       <div className="w-full bg-white h-3"></div>
       <div className="flex flex-grow">
-        <div className="w-1/4 p-4 ">
-              <h1 className="text-2xl font-bold text-purple-700 mb-4">Seller&apos;s Todo Lists</h1>
-    {todos.map((todo, index) => (
-      <div key={index} className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer">
-        <input type="checkbox" checked={todo.isChecked} onChange={() => handleCheck(index)} />
-        <p className={`text-purple-600 ${todo.isChecked ? 'line-through' : ''}`}>{todo.task}</p>
-      </div>
-    ))}
-    {showReportButton && (
-      <button className="bg-green-600 text-white p-2 rounded">Report to Manager</button>
-    )}
-    </ div>
+        <div className="w-1/4 p-4">
+          <h1 className="text-2xl font-bold text-purple-700 mb-4">
+            Seller&apos;s Todo Lists
+          </h1>
+          {todos.map((todo, index) => (
+            <div
+              key={index}
+              className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                checked={todo.isChecked}
+                onChange={() => handleCheck(index)}
+              />
+              <p
+                className={`text-purple-600 ${
+                  todo.isChecked ? "line-through" : ""
+                }`}
+              >
+                {todo.task}
+              </p>
+            </div>
+          ))}
+          {showReportButton && (
+            <button className="bg-green-600 text-white p-2 rounded">
+              Report to Manager
+            </button>
+          )}
+        </div>
 
         {/* Progress tree */}
         <div className="w-2/4 p-4 ">

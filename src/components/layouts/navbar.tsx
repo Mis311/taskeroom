@@ -54,7 +54,7 @@ const Navbar: React.FC = () => {
   }, [])
 
   return (
-    <div className="bg-base text-white w-30 fixed top-0 bottom-0 overflow-auto">
+    <div className="bg-base text-white w-30 fixed top-0 bottom-0 overflow-auto z-10">
       <div className="p-4 bg-secondary">
         <div className="flex items-center">
           <Image
