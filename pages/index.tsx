@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { FcGoogle } from "react-icons/fc";
 import { AiOutlineMail } from "react-icons/ai";
 import Image from "next/image";
+import Link from "next/link";
 const Home: React.FC = () => {
   const { currentUser, googleSignIn, login, signUpUser, logOut } = useAuth();
   const router = useRouter();
@@ -38,7 +39,6 @@ const Home: React.FC = () => {
   };
 
   useEffect(() => {
-
     if (currentUser && currentUser.displayName) {
       router.push(`/${currentUser.displayName}/dashboard`);
     }
@@ -66,7 +66,12 @@ const Home: React.FC = () => {
     const password = passwordRef.current.value;
     const confirmPass = confirmPassRef.current.value;
 
-    if (username === "" || email === "" || password === "" || confirmPass === "") {
+    if (
+      username === "" ||
+      email === "" ||
+      password === "" ||
+      confirmPass === ""
+    ) {
       return;
     } else if (password !== confirmPass) {
       return;
@@ -88,7 +93,6 @@ const Home: React.FC = () => {
     <Layout header={true} navbar={false}>
       <div className="flex flex-col items-center ml-16 mr-16 justify-center  max-h-screen  ${navbar ? 'ml-64' : ''}`">
         <div className="flex flex-col md:flex-row md:space-x-5 space-y-5  md:space-y-0 ">
-
           <section className="flex flex-col items-center text-left md:w-2/5 mt-10">
             <h2 className="text-5xl font-middle font-semibold leading-relaxed p-2 text-left">
               Automate and go ahead of your life
@@ -149,13 +153,12 @@ const Home: React.FC = () => {
               <li className="text-2xl border-b border-gray-400">todo2</li>
               <li className="text-2xl border-b border-gray-400">todo3</li>
             </ul>
-
-            <button onClick={() => {
-                  setShowSignUp(true);
-                }} className="w-16 h-16 mt-12 text-white bg-black rounded-full cursor-pointer">
-              ➡
-            </button>
-            <p>Automate</p>
+            <Link href="/user/dashboard">
+              <button className="w-16 h-16 mt-12 text-white bg-black rounded-full cursor-pointer">
+                ➡
+              </button>
+              <p>Automate</p>
+            </Link>
           </section>
         </div>
         {showLogin ? (
