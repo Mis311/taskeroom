@@ -7,7 +7,7 @@ const Header: React.FC = () => {
       <header className="bg-indigo-400 text-white px-4 py-4 text-center">
         <Link href="/user/dashboard">
           <h1 className="text-3xl font-bold cursor-pointer">
-            Taskeroom(→Dashboard)
+            Taskeroom
           </h1>
         </Link>
       </header>

@@ -153,13 +153,6 @@ const Home: React.FC = () => {
               <li className="text-2xl border-b border-gray-400">todo2</li>
               <li className="text-2xl border-b border-gray-400">todo3</li>
             </ul>
-            <Link href="/user/dashboard">
-              <button className="w-16 h-16 mt-12 text-white bg-black rounded-full cursor-pointer">
-                ➡
-              </button>
-              <p>Automate</p>
-            </Link>
-          
           </section>
         </div>
         {showLogin ? (
