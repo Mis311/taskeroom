@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback  } from "react";
 import axios from "axios";
 import { useAuth } from "../../firebase/AuthContext";
 import Modal from "react-modal";
 import { FaEnvelope } from "react-icons/fa";
 import { config } from "dotenv";
 config();
-
-const {currentUser} = useAuth()
 
 //mockup data
 const taskOptions = [
@@ -41,6 +39,7 @@ const taskDeadlines = [
 const prices = [100, 200, 150, 120, 180, 210];
 
 const Dashboard = () => {
+  const { currentUser } = useAuth();
   const [feedback, setFeedback] = useState("");
   const [taskResult, setTaskResult] = useState("");
   const [todos, setTodos] = useState([]);
@@ -48,7 +47,7 @@ const Dashboard = () => {
   const [selectedDescription, setSelectedDescription] = useState(
     descriptionOptions[0]
   );
-  const { currentUser } = useAuth();
+
   const [taskDeadline, setTaskDeadline] = useState("");
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState("not completed");
@@ -161,7 +160,7 @@ const Dashboard = () => {
     }
   };
 
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
       const res = await fetch(
         `http://taskeroom.akubuezeernest.com/task/${currentUser?.uid}`
@@ -174,13 +173,28 @@ const Dashboard = () => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [currentUser]);
 
   useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const res = await fetch(
+          `http://taskeroom.akubuezeernest.com/task/${currentUser?.uid}`
+        );
+        const data = await res.json();
+        if (data["All Tasks"]) {
+          setTodos(data["All Tasks"]);
+        }
+        console.log(data["All Tasks"]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     if (currentUser) {
       fetchTasks();
     }
-  }, [currentUser, fetchTasks]);
+  }, [currentUser]);
 
   return (
     <div className="container mx-auto my-5 p-5">
