@@ -103,7 +103,7 @@ const Navbar: React.FC = () => {
       </nav>
       <button
         onClick={handleLogout}
-        className="w-full text-center bg-green-300 p-2 rounded mt-4" // Consider your own styling here
+        className="w-full text-center bg-secondary p-2 rounded mt-4" 
       >
         Log Out
       </button>
