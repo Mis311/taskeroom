@@ -125,6 +125,7 @@ const Dashboard = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Manager Task Modal"
+        className="w-1/2 text-right"
       >
         <h2>Manager's Tasks</h2>
         {/* {managerTask.map((task) => (
