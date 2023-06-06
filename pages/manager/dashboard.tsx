@@ -140,6 +140,7 @@ const Dashboard = () => {
     };
 
     let report: ReportType | null = null;
+    report = { price: 100, userId: "someUserId", taskId: "someTaskId" };
 
     // Check if report exists
     if (report !== null) {
