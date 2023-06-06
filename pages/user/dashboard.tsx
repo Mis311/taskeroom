@@ -6,12 +6,20 @@ import Image from "next/image";
 import axios from "axios";
 import { FaEnvelope, FaCheck } from "react-icons/fa";
 import Modal from "react-modal";
+import { useAuth } from "../../firebase/AuthContext";
 
 type Event = {
   title: string;
   start: Date;
   end: Date;
 };
+type ReportType = {
+  price: number;
+  userId: string;
+  taskId: string;
+};
+
+
 
 type Todo = {
   task: string;
@@ -23,6 +31,7 @@ type Task = {
 };
 
 const Dashboard = () => {
+  const {currentUser} = useAuth();
   const [todos, setTodos] = useState<Todo[]>([
     { task: "Inventory System Optimization", isChecked: false },
     { task: "Campaign Planning", isChecked: false },
@@ -97,16 +106,19 @@ const Dashboard = () => {
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
 
   const fetchManagerTask = async () => {
+    
+
+
+
     setIsOpen(true);
     try {
-      const response = await axios.get(
-        "http://taskeroom.akubuezeernest.com/task/manager1"
-      );
+      const response = await axios.get(`http://taskeroom.akubuezeernest.com/task/${currentUser?.uid}`);
       setManagerTask(response.data);
     } catch (err) {
       console.error(err);
     }
   };
+  
 
   const closeModal = () => {
     setIsOpen(false);
@@ -136,7 +148,7 @@ const Dashboard = () => {
         contentLabel="Manager Task Modal"
         className="w-1/2 text-right"
       >
-        <h2>Manager's Tasks</h2>
+        <h2>Manager&apos;s Tasks</h2>
         {managerTask.map((task, index) => (
           <div key={index}>
             <h3>{task.task_name}</h3>

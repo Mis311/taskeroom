@@ -6,6 +6,8 @@ import { FaEnvelope } from "react-icons/fa";
 import { config } from "dotenv";
 config();
 
+const {currentUser} = useAuth()
+
 //mockup data
 const taskOptions = [
   "Inventory Check",
@@ -46,7 +48,7 @@ const Dashboard = () => {
   const [selectedDescription, setSelectedDescription] = useState(
     descriptionOptions[0]
   );
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth();
   const [taskDeadline, setTaskDeadline] = useState("");
   const [price, setPrice] = useState("");
   const [status, setStatus] = useState("not completed");
@@ -55,24 +57,26 @@ const Dashboard = () => {
 
   const handleCreateTask = async () => {
     try {
-      let res = await fetch(`http://taskeroom.akubuezeernest.com/create_task/${currentUser?.uid}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        task_name: selectedTask,
-        task_description: selectedDescription,
-        task_deadline: taskDeadline,
-        price: parseInt(price),
-        status: status,
-    })
-  })
+      let res = await fetch(
+        `http://taskeroom.akubuezeernest.com/create_task/${currentUser?.uid}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            task_name: selectedTask,
+            task_description: selectedDescription,
+            task_deadline: taskDeadline,
+            price: parseInt(price),
+            status: status,
+          }),
+        }
+      );
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  
-  }
+  };
 
   // AI making feedback
 
@@ -134,9 +138,10 @@ const Dashboard = () => {
       price: number;
       userId: string;
       taskId: string;
-    } | null;
+    };
 
-    const [report, setReport] = useState<ReportType>(null);
+    let report: ReportType | null = null;
+
     // Check if report exists
     if (report !== null) {
       try {
@@ -158,27 +163,16 @@ const Dashboard = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await fetch(`http://taskeroom.akubuezeernest.com/task/${currentUser?.uid}`)
-      const data = await res.json()
+      const res = await fetch(
+        `http://taskeroom.akubuezeernest.com/task/${currentUser?.uid}`
+      );
+      const data = await res.json();
       if (data["All Tasks"]) {
-        setTodos(data["All Tasks"])
+        setTodos(data["All Tasks"]);
       }
-      console.log(data["All Tasks"])
+      console.log(data["All Tasks"]);
     } catch (error) {
-      console.log(error)
-    }
-  };
-
-  const fetchAllTasks = async () => {
-    try {
-      const res = await fetch(`http://taskeroom.akubuezeernest.com/tasks`)
-      const data = await res.json()
-      if (data["All Tasks"]) {
-        setTodos(data["All Tasks"])
-      }
-      console.log(data["All Tasks"])
-    } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -186,7 +180,8 @@ const Dashboard = () => {
     if (currentUser) {
       fetchTasks();
     }
-  }, [currentUser]);
+  }, [currentUser, fetchTasks]);
+
   return (
     <div className="container mx-auto my-5 p-5">
       <div className="absolute right-0 top-0 mr-8 mt-8 w-6 h-6">
