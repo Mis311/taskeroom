@@ -6,7 +6,7 @@ import Image from "next/image";
 import axios from "axios";
 import { FaEnvelope, FaCheck } from "react-icons/fa";
 import Modal from "react-modal";
-import { AiFillUser } from "react-icons/ai";
+
 type Event = {
   title: string;
   start: Date;
@@ -231,13 +231,19 @@ const Dashboard = () => {
             style={{ height: 500, width: "100%" }}
             defaultView="day"
           />
-           <div 
-          className="flex items-center mt-4 p-4 border-2 border-gray-300 rounded cursor-pointer" 
-          onClick={handleUserCardClick}
-        >
-          <AiFillUser className="mr-2" />
-          <span>Hanna is available for session!</span>
-        </div>
+          <div
+            className="flex items-center mt-4 p-4 border-2 border-gray-300 rounded cursor-pointer"
+            onClick={handleUserCardClick}
+          >
+            <Image
+              src="/logo.png"
+              alt="My Icon"
+              width={20}
+              height={20}
+              className="mr-2"
+            />
+            <span>Hanna is available for session!</span>
+          </div>
         </div>
       </div>
     </div>

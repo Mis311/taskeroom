@@ -6,22 +6,30 @@ import Image from "next/image";
 import { useAuth } from "../../../firebase/AuthContext";
 
 type User = {
-  status: string
-  user_name: string
-  user_id: string
-  user_email: string
-}
+  status: string;
+  user_name: string;
+  user_id: string;
+  user_email: string;
+};
 
 const Navbar: React.FC = () => {
   const router = useRouter();
   const { role, setRole } = useContext(RoleContext);
-  const {currentUser} = useAuth()
-  const [user, setUser] = useState<User | null>(null)
+  const { currentUser, logOut } = useAuth();
+  const [user, setUser] = useState<User | null>(null);
 
   const managerLinks = [
     { name: "Dashboard", href: "/manager/dashboard" },
     { name: "Teams", href: "/manager/teams" },
   ];
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      router.push("/"); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const userLinks = [
     { name: "Dashboard", href: "/user/dashboard" },
@@ -45,15 +53,17 @@ const Navbar: React.FC = () => {
 
   const getUserData = async () => {
     if (currentUser) {
-      const res = await fetch(`http://taskeroom.akubuezeernest.com/user/${currentUser.uid}`)
-    const data = await res.json()
-    setUser(data)
+      const res = await fetch(
+        `http://taskeroom.akubuezeernest.com/user/${currentUser.uid}`
+      );
+      const data = await res.json();
+      setUser(data);
     }
-  }
+  };
 
   useEffect(() => {
-    getUserData()
-  }, [])
+    getUserData();
+  }, []);
 
   return (
     <div className="bg-base text-white fixed top-0 bottom-0 overflow-auto z-10  w-min-30">
@@ -68,7 +78,12 @@ const Navbar: React.FC = () => {
           />
           <div>
             <h2 className="text-lg font-bold">Your Role: {role}</h2>
-            <p className="text-sm">Managed by <span className="font-bold text-green-300 cursor-pointer">{user ? user.user_name : ""}</span></p>
+            <p className="text-sm">
+              Managed by{" "}
+              <span className="font-bold text-green-300 cursor-pointer">
+                {user ? user.user_name : ""}
+              </span>
+            </p>
           </div>
         </div>
       </div>
@@ -86,7 +101,12 @@ const Navbar: React.FC = () => {
           </Link>
         ))}
       </nav>
-
+      <button
+        onClick={handleLogout}
+        className="w-full text-center bg-green-300 p-2 rounded mt-4" // Consider your own styling here
+      >
+        Log Out
+      </button>
       <div className="bottom-0 left-0 absolute p-4 bg-base">
         <button
           onClick={handleRoleChange}
