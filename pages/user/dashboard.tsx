@@ -17,6 +17,11 @@ type Todo = {
   task: string;
   isChecked: boolean;
 };
+type Task = {
+  task_name: string;
+  task_description: string;
+};
+
 const Dashboard = () => {
   const [todos, setTodos] = useState<Todo[]>([
     { task: "Inventory System Optimization", isChecked: false },
@@ -26,7 +31,9 @@ const Dashboard = () => {
     { task: "CS Training", isChecked: false },
     { task: "Customer Feedback", isChecked: false },
   ]);
+  const [selectedManagerTask, setSelectedManagerTask] = useState("");
 
+  const [managerTask, setManagerTask] = useState<Task[]>([]);
   const [showReportButton, setShowReportButton] = useState(false);
 
   // Function to handle checkbox click
@@ -87,7 +94,6 @@ const Dashboard = () => {
   };
 
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [managerTask, setManagerTask] = useState("");
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
 
   const fetchManagerTask = async () => {
@@ -131,12 +137,18 @@ const Dashboard = () => {
         className="w-1/2 text-right"
       >
         <h2>Manager's Tasks</h2>
-        {/* {managerTask.map((task) => (
-          <div key={task.task_name}>
+        {managerTask.map((task, index) => (
+          <div key={index}>
             <h3>{task.task_name}</h3>
             <p>{task.task_description}</p>
+            <button
+              onClick={() => setSelectedTask(task.task_name)}
+              className="bg-green-500 text-black p-2 rounded"
+            >
+              Add to Todo List
+            </button>
           </div>
-        ))}to be updated */}
+        ))}
         <button
           onClick={closeModal}
           className="absolute top-0 right-0 bg-gray-500 text-white p-2 rounded-bl"

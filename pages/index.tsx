@@ -159,6 +159,7 @@ const Home: React.FC = () => {
               </button>
               <p>Automate</p>
             </Link>
+          
           </section>
         </div>
         {showLogin ? (
