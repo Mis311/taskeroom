@@ -56,7 +56,7 @@ const Navbar: React.FC = () => {
   }, [])
 
   return (
-    <div className="bg-base text-white w-30 fixed top-0 bottom-0 overflow-auto z-10">
+    <div className="bg-base text-white fixed top-0 bottom-0 overflow-auto z-10  w-min-30">
       <div className="p-4 bg-secondary">
         <div className="flex items-center">
           <Image
@@ -87,7 +87,7 @@ const Navbar: React.FC = () => {
         ))}
       </nav>
 
-      <div className="fixed bottom-0 left-0  p-4 bg-base">
+      <div className="bottom-0 left-0 absolute p-4 bg-base">
         <button
           onClick={handleRoleChange}
           className="w-full py-2 text-center bg-secondary p-2 rounded"

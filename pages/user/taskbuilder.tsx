@@ -7,19 +7,39 @@ config();
 const TaskMaker = () => {
   const [taskDescription, setTaskDescription] = useState("");
   const [deadline, setDeadline] = useState("");
-  const [milestones, setMilestones] = useState(false); // For the checkbox state
-  const [aiSuggestSchedule, setAISuggestSchedule] = useState(false); // For the checkbox state
-  const [aiSuggestAction, setAISuggestAction] = useState(false); // For the checkbox state
+  const [milestones, setMilestones] = useState(false);
+  const [aiSuggestSchedule, setAISuggestSchedule] = useState(false);
+  const [aiSuggestAction, setAISuggestAction] = useState(false);
   const [aiSuggestions, setAiSuggestions] = useState<any[]>([]);
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth();
+  const [selectedTodo, setSelectedTodo] = useState("");
+
+  //add todolist to todo input
+  const handleTodoClick = (todo: any) => {
+    if (selectedTodo === todo) {
+      setSelectedTodo("");
+      setTaskDescription("");
+    } else {
+      setSelectedTodo(todo);
+      setTaskDescription(todo);
+    }
+  };
 
   type Choice = {
     text: string;
     // other properties of a choice object
   };
 
+  const handleRedo = () => {
+    // Clear the current task description
+    setTaskDescription("");
+    setAiSuggestions([]);
+  };
 
-
+  const handleAddToDashboard = (suggestion: string) => {
+    // go to dashboard
+    window.location.href = "/dashboard";
+  };
   const handleTaskSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -45,7 +65,7 @@ const TaskMaker = () => {
     } catch (error) {
       console.error("Failed to fetch AI suggestions:", error);
     }
-    // add the task 
+    // add the task
   };
   const todos = [
     "Inventory System Optimization",
@@ -56,27 +76,27 @@ const TaskMaker = () => {
     "Customer Feedback",
   ];
 
-
-
   return (
     <>
-     <div className="flex  items-center p-4 font-sans text-gray-800 bg-gray-200 w-full min-w-full">
-      {/* Todo List */}
-      <div className="w-1/4 p-4 ">
+      <div className="flex  items-center p-4 font-sans text-gray-800 bg-gray-200 w-full min-w-full">
+        {/* Todo List */}
+        <div className="w-1/4 p-4 ">
           <h1 className="text-2xl font-bold text-purple-700 mb-4">
             Seller&apos;s Todo Lists
           </h1>
           {todos.map((todo, index) => (
             <div
               key={index}
-              className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer"
+              className={`bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer ${
+                selectedTodo === todo ? "bg-purple-500 text-white" : ""
+              }`}
+              onClick={() => handleTodoClick(todo)}
             >
               <p className="text-purple-600">{todo}</p>
             </div>
           ))}
         </div>
         <div className="flex flex-col items-center w-full ">
-       
           <h2 className="">Add Your Task</h2>
           <form
             className="flex flex-col mb-8 w-3/5"
@@ -137,12 +157,15 @@ const TaskMaker = () => {
                   className="w-full p-4 mb-4 text-center text-gray-800 bg-white rounded-lg shadow-md"
                 >
                   <p>{suggestion}</p>
+                  <button onClick={() => handleAddToDashboard(suggestion)}>
+                    Add to Dashboard
+                  </button>
+                  <button onClick={handleRedo}>Redo</button>
                 </div>
               ))}
           </div>
         </div>
-        </div>
-   
+      </div>
     </>
   );
 };
