@@ -44,9 +44,11 @@ const Navbar: React.FC = () => {
   };
 
   const getUserData = async () => {
-    const res = await fetch(`http://taskeroom.akubuezeernest.com/user/${currentUser.uid}`)
+    if (currentUser) {
+      const res = await fetch(`http://taskeroom.akubuezeernest.com/user/${currentUser.uid}`)
     const data = await res.json()
     setUser(data)
+    }
   }
 
   useEffect(() => {
