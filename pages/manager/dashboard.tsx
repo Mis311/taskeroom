@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback  } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useAuth } from "../../firebase/AuthContext";
 import Modal from "react-modal";
@@ -142,7 +142,6 @@ const Dashboard = () => {
     let report: ReportType | null = null;
     report = { price: 100, userId: "someUserId", taskId: "someTaskId" };
 
-    // Check if report exists
     if (report !== null) {
       try {
         await axios.post("http://squareapi.com/payment/process", {

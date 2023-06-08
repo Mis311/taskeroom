@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -19,8 +19,6 @@ type ReportType = {
   taskId: string;
 };
 
-
-
 type Todo = {
   task: string;
   isChecked: boolean;
@@ -28,10 +26,13 @@ type Todo = {
 type Task = {
   task_name: string;
   task_description: string;
+  task_price: number;
+  task_deadline: number;
+  task_status: string;
 };
 
 const Dashboard = () => {
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
   const [todos, setTodos] = useState<Todo[]>([
     { task: "Inventory System Optimization", isChecked: false },
     { task: "Campaign Planning", isChecked: false },
@@ -106,23 +107,25 @@ const Dashboard = () => {
   const [selectedTask, setSelectedTask] = useState<string | null>(null);
 
   const fetchManagerTask = async () => {
-    
-
-
-
-    setIsOpen(true);
     try {
-      const response = await axios.get(`http://taskeroom.akubuezeernest.com/task/${currentUser?.uid}`);
-      setManagerTask(response.data);
-    } catch (err) {
-      console.error(err);
+      const response = await fetch("http://taskeroom.akubuezeernest.com/tasks");
+      const tasks = await response.json();
+      console.log(tasks);
+    } catch (error) {
+      console.log(error);
     }
   };
-  
+
+  useEffect(() => {
+    if (currentUser) {
+      fetchManagerTask();
+    }
+  }, [currentUser]);
 
   const closeModal = () => {
     setIsOpen(false);
   };
+
   return (
     <div className="flex flex-col h-screen z-0">
       {/* Overall Progress */}
@@ -132,12 +135,13 @@ const Dashboard = () => {
           alt="Overall Progress"
           width={800}
           height={200}
+          onClick={fetchManagerTask}
         />
       </div>
       {/* Mail Icon and Task */}
       <div className="absolute right-0 top-0 mr-8 mt-8 w-6 h-6">
         <FaEnvelope
-          onClick={fetchManagerTask}
+          onClick={() => setIsOpen(true)}
           className="text-gray-500 cursor-pointer w-12 h-12 p-2 absolute right-0 mr-4 "
         />
       </div>
@@ -146,13 +150,26 @@ const Dashboard = () => {
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         contentLabel="Manager Task Modal"
-        className="w-1/2 text-right"
+        className="w-1/2 text-right text-black"
       >
         <h2>Manager&apos;s Tasks</h2>
-        {managerTask.map((task, index) => (
-          <div key={index}>
+        <h2>
+          {" "}
+          Select Description
+          <br></br>
+          Check and update the current inventory status for all products.
+          <br />
+          Task Deadline: July 20th, 2023
+        </h2>
+        <button className="rounded bg-purple-400" onClick={closeModal}>
+          Confirm
+        </button>
+        {managerTask.map((task) => (
+          <div key={task.task_name}>
             <h3>{task.task_name}</h3>
             <p>{task.task_description}</p>
+            <p>{task.task_deadline}</p>
+            <p>{task.task_price}</p>
             <button
               onClick={() => setSelectedTask(task.task_name)}
               className="bg-green-500 text-black p-2 rounded"
@@ -161,6 +178,7 @@ const Dashboard = () => {
             </button>
           </div>
         ))}
+
         <button
           onClick={closeModal}
           className="absolute top-0 right-0 bg-gray-500 text-white p-2 rounded-bl"
@@ -187,6 +205,7 @@ const Dashboard = () => {
           <h1 className="text-2xl font-bold text-purple-700 mb-4">
             Seller&apos;s Todo Lists
           </h1>
+
           {todos.map((todo, index) => (
             <div
               key={index}
