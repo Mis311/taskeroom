@@ -203,7 +203,7 @@ const Dashboard = () => {
       <div className="flex flex-grow">
         <div className="w-1/4 p-4">
           <h1 className="text-2xl font-bold text-purple-700 mb-4">
-            Seller&apos;s Todo Lists
+            Today&apos;s Habits
           </h1>
 
           {todos.map((todo, index) => (
@@ -230,14 +230,39 @@ const Dashboard = () => {
               Report to Manager
             </button>
           )}
+            <h1 className="text-2xl font-bold text-purple-700 mb-4">
+            Today&apos;s Todo
+          </h1>
+          {todos.map((todo, index) => (
+            <div
+              key={index}
+              className="bg-purple-200 rounded-lg p-2 mb-4 flex justify-between items-center cursor-pointer"
+            >
+              <input
+                type="checkbox"
+                checked={todo.isChecked}
+                onChange={() => handleCheck(index)}
+              />
+              <p
+                className={`text-purple-600 ${
+                  todo.isChecked ? "line-through" : ""
+                }`}
+              >
+                {todo.task}
+              </p>
+            </div>
+          ))}
+
         </div>
+{/* 
+        Todo list */}
 
         {/* Progress tree */}
-        <div className="w-2/4 p-4 ">
+        {/* <div className="w-2/4 p-4 ">
           <Image src="/component.png" alt="barchart" width={500} height={800} />
-        </div>
+        </div> */}
         {/* Schedule booking */}
-        <div className="w-1/4  p-4">
+        <div className="w-3/4  p-4">
           <button
             onClick={aiSuggestSessionTime}
             className="mb-4 bg-purple-600 text-white p-2 rounded"
