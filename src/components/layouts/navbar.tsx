@@ -25,18 +25,19 @@ const Navbar: React.FC = () => {
   const handleLogout = async () => {
     try {
       await logOut();
-      router.push("/"); 
+      router.push("/");
     } catch (error) {
       console.error(error);
     }
   };
 
   const userLinks = [
-    { name: "Dashboard", href: "/user/dashboard" },
+    { name: "Goals", href: "/user/goals" },
     { name: "TaskBuilder", href: "/user/taskbuilder" },
     { name: "Achievements", href: "/user/achievements" },
     { name: "Teams", href: "/user/teams" },
     { name: "Public Feed", href: "/user/public-feed" },
+    { name: "Dashboard", href: "/user/dashboard" },
   ];
 
   const links = role === "manager" ? managerLinks : userLinks;
@@ -103,7 +104,7 @@ const Navbar: React.FC = () => {
       </nav>
       <button
         onClick={handleLogout}
-        className="w-full text-center bg-secondary p-2 rounded mt-4" 
+        className="w-full text-center bg-secondary p-2 rounded mt-4"
       >
         Log Out
       </button>
