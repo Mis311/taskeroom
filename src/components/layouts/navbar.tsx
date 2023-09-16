@@ -52,26 +52,26 @@ const Navbar: React.FC = () => {
     }
   };
 
-  const getUserData = async () => {
-    if (currentUser) {
-      const res = await fetch(
-        `http://taskeroom.akubuezeernest.com/user/${currentUser.uid}`
-      );
-      const data = await res.json();
-      setUser(data);
-    }
-  };
+
 
   // useEffect(() => {
   //   getUserData();
   // }, []);
 
   useEffect(() => {
-    // Your code here
+    const getUserData = async () => {
+      if (currentUser) {
+        const res = await fetch(
+          `http://taskeroom.akubuezeernest.com/user/${currentUser.uid}`
+        );
+        const data = await res.json();
+        setUser(data);
+      }
+    };
   
     getUserData(); // This is an example function
+  }, []); // Empty dependency array
   
-  }, [getUserData]); // Add the dependency here
   
   return (
     <div className="bg-base text-white fixed top-0 bottom-0 overflow-auto z-10  w-min-30">
