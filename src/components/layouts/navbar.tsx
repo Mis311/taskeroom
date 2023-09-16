@@ -70,6 +70,7 @@ const Navbar: React.FC = () => {
     getUserData(); // This is an example function
   }, [currentUser]); // Include 'currentUser' in the dependency array
 
+  
   return (
     <div className="bg-base text-white fixed top-0 bottom-0 overflow-auto z-10  w-min-30">
       <div className="p-4 bg-secondary">
