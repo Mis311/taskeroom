@@ -1,17 +1,16 @@
 import React from "react";
 
-
 // Function to parse the user info and extract todo items
-const parseUserInfo = (userInfo) => {
+const parseUserInfo = (userInfo:any) => {
   // Split the user info string into lines
   const lines = userInfo.split("\n");
 
   // Filter out empty lines and lines that start with "name:"
   const todoLines = lines.filter(
-    (line) => line.trim() !== "" && !line.startsWith("name:")
+    (line:any) => line.trim() !== "" && !line.startsWith("name:")
   );
 
-  return todoLines.map((line, index) => (
+  return todoLines.map((line:any, index:any) => (
     <li key={index} className="list-disc ml-4">
       {line}
     </li>
@@ -23,7 +22,7 @@ const Achievements = () => {
     {
       title: "Name: amandalexbr ",
       content: "   My goals for this week:",
-      imageSrc: "/image1.jpg",
+      imageSrc: "/banner.png",
       userInfo: `
 
      
@@ -41,7 +40,7 @@ const Achievements = () => {
     {
       title: " Name: miki ",
       content: "Goal and achievements",
-      imageSrc: "/image2.jpg",
+      imageSrc: "/banner2.png",
       userInfo: `
      
         - Typing my redux selectors and actions
@@ -56,7 +55,7 @@ const Achievements = () => {
     {
       title: " Name: cryingDebugger",
       content: "Goal and achievements",
-      imageSrc: "/image3.jpg",
+      imageSrc: "/banner4.png",
       userInfo: `
        
         - Complete my bank coding project
@@ -71,7 +70,7 @@ const Achievements = () => {
     {
       title: "  Name: Ley",
       content: "Goal and achievements",
-      imageSrc: "/image4.jpg",
+      imageSrc: "/banner6.png",
       userInfo: `
       
         - Study API on Next.js and understand how to write
@@ -85,7 +84,7 @@ const Achievements = () => {
     {
       title: "Name: zhivkosh ",
       content: "Goal and achievements",
-      imageSrc: "/image5.jpg",
+      imageSrc: "/banner7.png",
       userInfo: `
      
         - My goal for 11.09 - 17.09:
@@ -120,7 +119,7 @@ const Achievements = () => {
             <ul className="list-disc list-inside mt-2">
               {parseUserInfo(achievement.userInfo)}
             </ul>
-            <p className="text-gray-600 mt-2">{achievement.score}</p>
+            <p className="text-orange-500  mt-2">{achievement.score}</p>
           </div>
         </div>
       ))}
