@@ -17,6 +17,7 @@ const Navbar: React.FC = () => {
   const { role, setRole } = useContext(RoleContext);
   const { currentUser, logOut } = useAuth();
   const [user, setUser] = useState<User | null>(null);
+
   useEffect(() => {
     const getUserData = async () => {
       if (currentUser) {
@@ -25,7 +26,6 @@ const Navbar: React.FC = () => {
         );
         const data = await res.json();
         setUser(data);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }
     };
 
@@ -36,6 +36,7 @@ const Navbar: React.FC = () => {
     { name: "Dashboard", href: "/manager/dashboard" },
     { name: "Teams", href: "/manager/teams" },
   ];
+
   const handleLogout = async () => {
     try {
       await logOut();
@@ -66,9 +67,6 @@ const Navbar: React.FC = () => {
     }
   };
 
-  // useEffect(() => {
-  //   getUserData();
-  // }, []);
 
   
   
