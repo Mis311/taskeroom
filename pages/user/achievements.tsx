@@ -33,8 +33,7 @@ const Achievements = () => {
         - Finish part 0 of The Standard open-source translation to Portuguese.
         - Close more important stories in our sprint
         - Start refining my React project
-        Total score: 3
-        - Learn basics of TypeScript and React-Typescript`,
+       `,
       score: "Total Score: 3",
     },
     {
@@ -49,7 +48,7 @@ const Achievements = () => {
         - Typing root state, third-party libraries, custom middleware, and categories saga
         - Typing the rest of sagas and button, input, and form components
         - Typing my SVG imports and the payment form
-        Total score: 1`,
+       `,
       score: "Total Score: 1",
     },
     {
@@ -83,11 +82,11 @@ const Achievements = () => {
     },
     {
       title: "Name: zhivkosh ",
-      content: "Goal and achievements",
+      content: " - My goal for 11.09 - 17.09:",
       imageSrc: "/banner7.png",
       userInfo: `
      
-        - My goal for 11.09 - 17.09:
+       
         - Node.js lecture + exercises
         - ExpressJS lecture + exercises
         - MongoDB lecture + exercises
