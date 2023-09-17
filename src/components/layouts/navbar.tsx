@@ -25,12 +25,13 @@ const Navbar: React.FC = () => {
         );
         const data = await res.json();
         setUser(data);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }
     };
 
     getUserData(); // This is an example function
   }, [currentUser]); // Include 'currentUser' in the dependency array
-  
+
   const managerLinks = [
     { name: "Dashboard", href: "/manager/dashboard" },
     { name: "Teams", href: "/manager/teams" },
