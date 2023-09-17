@@ -17,7 +17,20 @@ const Navbar: React.FC = () => {
   const { role, setRole } = useContext(RoleContext);
   const { currentUser, logOut } = useAuth();
   const [user, setUser] = useState<User | null>(null);
+  useEffect(() => {
+    const getUserData = async () => {
+      if (currentUser) {
+        const res = await fetch(
+          `http://taskeroom.akubuezeernest.com/user/${currentUser.uid}`
+        );
+        const data = await res.json();
+        setUser(data);
+      }
+    };
 
+    getUserData(); // This is an example function
+  }, [currentUser]); // Include 'currentUser' in the dependency array
+  
   const managerLinks = [
     { name: "Dashboard", href: "/manager/dashboard" },
     { name: "Teams", href: "/manager/teams" },
@@ -56,20 +69,7 @@ const Navbar: React.FC = () => {
   //   getUserData();
   // }, []);
 
-  useEffect(() => {
-    const getUserData = async () => {
-      if (currentUser) {
-        const res = await fetch(
-          `http://taskeroom.akubuezeernest.com/user/${currentUser.uid}`
-        );
-        const data = await res.json();
-        setUser(data);
-      }
-    };
-
-    getUserData(); // This is an example function
-  }, [currentUser]); // Include 'currentUser' in the dependency array
-
+  
   
   return (
     <div className="bg-base text-white fixed top-0 bottom-0 overflow-auto z-10  w-min-30">
